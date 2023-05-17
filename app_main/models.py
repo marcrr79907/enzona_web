@@ -66,28 +66,21 @@ class Gas_Service(models.Model):
 # ____________________ENZONA DATA BASES____________________
 
 class User(models.Model):
-    full_name = models.CharField(max_length=200)
-    gener = models.CharField(max_length=50)
-    born_date = models.DateField()
-    address = models.CharField(max_length=200)
 
+    ci = models.CharField(max_length=200, unique=True, null=False)
     user_name = models.CharField(max_length=200, unique=True, null=False)
-    password = models.CharField(max_length=200, null=False)
-
-    phone = models.ForeignKey(Phone_DB, unique=True, on_delete=models.CASCADE)
+    password = models.CharField(
+        max_length=200, null=False)
+    phone = models.IntegerField(unique=True, null=False)
     id_person = models.ForeignKey(
-        Person_DB, unique=True, on_delete=models.CASCADE)
+        Person_DB, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user_name
 
 
 class User_Card(models.Model):
-    card_card = models.ManyToManyField(Bank_DB)
-    card_electricity = models.ManyToManyField(Electricity_Service)
-    card_gas = models.ManyToManyField(Gas_Service)
-
-    card_number = models.IntegerField(unique=True, null=False)
+    card_number = models.CharField(max_length=200, unique=True, null=False)
     date_ex = models.DateField(null=False)
     currency_type = models.CharField(max_length=20, null=False)
     balance = models.PositiveIntegerField(default=0)
@@ -98,7 +91,7 @@ class User_Card(models.Model):
         return f'Número tarjeta: {self.card_number} Usuario: {self.user.user_name}'
 
 
-"""class Transfer(models.Model):
+class Transfer(models.Model):
     origin_card = models.IntegerField(null=False)
     dest_card = models.IntegerField(null=False)
     import_transfer = models.PositiveIntegerField(null=False)
@@ -110,24 +103,37 @@ class User_Card(models.Model):
 
 
 class Electricity_Service_Pay(models.Model):
-    service_id = models.ForeignKey(
-        Electricity_Service, unique=True, on_delete=models.CASCADE, null=False)
-
+    service_id = models.IntegerField(unique=True, null=False)
     propietary = models.CharField(max_length=50)
     service_type = models.CharField(max_length=50)
     import_service = models.IntegerField()
     date = models.DateField(default=datetime.now)
 
-    def __str__(self) -> str:
-        return f'ID_servicio: {self.service_id.electricity_id} Tipo: {self.service_type} Importe: {self.import_service}'
+    id_electricity = models.ForeignKey(
+        Electricity_Service, on_delete=models.CASCADE, null=False)
 
-"""
+    def __str__(self) -> str:
+        return f'ID_servicio: {self.service_id} Tipo: {self.service_type} Importe: {self.import_service}'
+
+
+class Gas_Service_Pay(models.Model):
+    service_id = models.IntegerField(unique=True, null=False)
+    propietary = models.CharField(max_length=50)
+    service_type = models.CharField(max_length=50)
+    import_service = models.IntegerField()
+    date = models.DateField(default=datetime.now)
+
+    id_gas = models.ForeignKey(
+        Gas_Service, on_delete=models.CASCADE, null=False)
+
+    def __str__(self) -> str:
+        return f'ID_servicio: {self.service_id} Tipo: {self.service_type} Importe: {self.import_service}'
 
 
 class Destinatary(models.Model):
     name = models.CharField(max_length=50)
     associated_card = models.ForeignKey(
-        Bank_DB, unique=True, on_delete=models.CASCADE, null=False)
+        Bank_DB, on_delete=models.CASCADE, null=False)
 
     def __str__(self) -> str:
         return f'Nombre: {self.name} Tarjeta: {self.associated_card}'
