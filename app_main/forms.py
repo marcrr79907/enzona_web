@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from .models import *
 from django import forms
 
@@ -19,19 +20,29 @@ class UserLogin(ModelForm):
 
 
 class CardForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form_control'
             form.field.widget.attrs['autocomplete'] = 'off'
+        self.fields['date_ex'].widget = forms.HiddenInput()
+        self.fields['currency_type'].widget = forms.HiddenInput()
 
     class Meta:
         model = User_Card
-        fields = ['card_number', 'pin']
+        fields = ['card_number', 'pin', 'date_ex', 'currency_type']
 
     def save(self, commit=True):
         data = {}
-        form = super()
+        form = super().save(commit=False)
+        number = self.cleaned_data.get('card_number')
+        if number:
+            # Obtiene el objeto existente
+            card = get_object_or_404(Bank_DB, card_number=number)
+            form.date_ex = card.date_exp
+            form.currency_type = card.currency_type
+
         try:
             if form.is_valid():
                 form.save()

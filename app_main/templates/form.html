@@ -1,6 +1,6 @@
 {% load static %}
 <head>
-    
+    <script src="{% static 'js/functions.js' %}"></script>
     <script src="{% static 'lib/sweetalert2/sweetalert2.all.min.js' %}"></script>
 </head>
 <body>
@@ -8,7 +8,7 @@
     <div class="text-center" style="border-radius: 15px;height: 500px;">
         
         <p class="text-center" style="font-size: 20px;">{{title}}</p>
-        <form method="POST" class="text-start" id="form-login">
+        <form method="POST" action=".">
             {% csrf_token %}
             <input type="hidden" value="{{action}}" name="action">
             {% if form.errors %}
@@ -36,7 +36,7 @@
                 <button class="btn btn-primary" data-bss-hover-animate="bounce" id="btn-sesion" type="submit">Aceptar</button>
             </div>
         </form>
-        <script>
+        <script type="application/javascript">
             {% if form.errors %}
                 var errors = '';
                 {% for field in form %}
@@ -49,8 +49,29 @@
                     html: errors,
                     icon: 'error'
                 });
+                messaje_error(data.error);
             {% endif %}
-            
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                var parameters = $(this).serializeArray();
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: parameters,
+                    dataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                    if(!data.hasOwnProperty('error')) {
+                        location.href = '{{ list_url }}';
+                        return false;
+                    }
+                    messaje_error(data.error);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+
+                });
+            });
         </script>
         
     </div>
