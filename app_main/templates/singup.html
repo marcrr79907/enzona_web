@@ -21,33 +21,6 @@
                     <input class="form-control" type="tel" name="phone" placeholder="Teléfono"
                         style="margin-top: 10px;">
                 </div>
-                <script>
-                    // Submit button made with javascript
-                    function changePassword() {
-                        var password = document.querySelector("#password").value;
-                        var confirmPassword = document.querySelector("#confirmPassword").value;
-
-                        if (password.length >= 8) {
-                            if (password === confirmPassword) {
-                                var btn = $('#submitButton').removeAttr("disabled");
-                                document.querySelector('#passwordsError').style.display = 'none';
-                                console.log("enabling")
-                            }
-                            else {
-                                var btn = $('#submitButton').attr("disabled", "true");
-                                document.querySelector('#passwordsError').style.display = 'block';
-                                document.querySelector('#errorMessage').innerHTML = 'The passwords do not match';
-                                console.log("disabling")
-                            }
-                        }
-                        else {
-                            var btn = $('#submitButton').attr("disabled", "true");
-                            document.querySelector('#passwordsError').style.display = 'block';
-                            document.querySelector('#errorMessage').innerHTML = 'The password must be at least 8 characters long';
-                            console.log("disabling")
-                        }
-                    }
-                </script>
                 
                 <div class="form-group mb-3">
                     <input class="form-control" type="password" id="password" name="password1" placeholder="Contraseña"

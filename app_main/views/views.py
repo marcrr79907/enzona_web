@@ -30,9 +30,6 @@ def signup(request):
             if not phone.associated and not person.register:
                 if request.POST['password1'] == request.POST['password2']:
                     try:
-                        print(request.POST)
-                        print(person.dni)
-                        print(phone.number)
                         person.user_set.create(
                             ci=request.POST['dni'], user_name=request.POST['username'], password=request.POST['password1'], phone=request.POST['phone'])
 
