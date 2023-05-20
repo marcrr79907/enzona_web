@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.forms import ModelForm
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -26,6 +27,7 @@ class CardForm(ModelForm):
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form_control'
             form.field.widget.attrs['autocomplete'] = 'off'
+        self.fields['card_number'].widget.attrs['autofocus'] = True
         self.fields['date_ex'].widget = forms.HiddenInput()
         self.fields['currency_type'].widget = forms.HiddenInput()
 
@@ -52,3 +54,12 @@ class CardForm(ModelForm):
             data['error'] = str(e)
 
         return data
+
+
+"""    def clean(self):
+        cleaned = super().clean()
+        if len(cleaned['card_number']) < 10:
+            self.add_error('card_number', 'El campo no puede estar vacio')
+
+        return cleaned
+"""

@@ -1,7 +1,7 @@
 from typing import Any
 from django import http
 from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render, redirect
@@ -16,6 +16,9 @@ class CardListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de tarjetas'
+        context['create_url'] = reverse_lazy('card_create')
+        context['list_url'] = reverse_lazy('card_list')
+        context['entity'] = User_Card
         context['object_list'] = User_Card.objects.all()
 
         return context
@@ -107,10 +110,37 @@ class CardDeleteView(DeleteView):
     template_name = 'cards/card_delete.html'
     success_url = reverse_lazy('card_delete')
 
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args: str, **kwargs):
+        data = {}
+        try:
+            self.object.delete()
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Eliminar Tarjeta'
         context['entity'] = 'User_Card'
         context['list_url'] = reverse_lazy('card_delete')
+
+        return context
+
+
+class CardFormView(FormView):
+    form_class = CardForm
+    template_name = 'cards/card_create.html'
+    success_url = reverse_lazy('card_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Formulario Tarjeta'
+        context['entity'] = 'User_Card'
+        context['list_url'] = reverse_lazy('card_list')
+        context['action'] = 'add'
 
         return context

@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import views, cards_view
 
+app_name = 'system'
 
 urlpatterns = [
-    path('', views.main_page, name='main'),
+    path('', views.IndexView.as_view(), name='home'),
     path('signup/', views.signup, name='signup'),
     path('operations/', views.operations, name='operations'),
     path('logout/', views.signout, name='logout'),
@@ -14,5 +15,7 @@ urlpatterns = [
     path('card_edit/<int:pk>/',
          cards_view.CardUpdateView.as_view(), name='card_update'),
     path('card_delete/<int:pk>/',
-         cards_view.CardDeleteView.as_view(), name='card_delete')
+         cards_view.CardDeleteView.as_view(), name='card_delete'),
+    path('card_form/',
+         cards_view.CardFormView.as_view(), name='card_form')
 ]

@@ -2,6 +2,7 @@ from ..models import User, User_Card, Person_DB, Phone_DB, Bank_DB
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.db import IntegrityError
 from ..forms import *
@@ -58,7 +59,7 @@ def signup(request):
 
 def signout(request):
     logout(request)
-    return redirect('main')
+    return redirect('home')
 
 
 def signin(request):
@@ -83,3 +84,7 @@ def signin(request):
 
 def operations(request):
     return render(request, 'operations.html')
+
+
+class IndexView(TemplateView):
+    template_name = 'index.html'
