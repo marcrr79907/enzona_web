@@ -3,6 +3,7 @@ from django import http
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render, redirect
 from ..models import *
@@ -12,6 +13,11 @@ from ..forms import *
 class CardListView(ListView):
     model = User_Card
     template_name = 'cards/card_list.html'
+
+    @ method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -32,6 +38,11 @@ class CardCreateView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         return response
+
+    @ method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -78,6 +89,7 @@ class CardUpdateView(UpdateView):
     template_name = 'cards/card_create.html'
     success_url = reverse_lazy('cards/cards_list')
 
+    @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -110,6 +122,7 @@ class CardDeleteView(DeleteView):
     template_name = 'cards/card_delete.html'
     success_url = reverse_lazy('card_delete')
 
+    @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)

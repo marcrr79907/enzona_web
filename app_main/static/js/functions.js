@@ -16,3 +16,34 @@ function messaje_error(obj) {
         icon: 'error'
     });
 }
+
+function confirm(params) {
+    $.confirm({
+        title: 'Confirm!',
+        content: params,
+        buttons: {
+            confirm: function () {
+                $.alert('Confirmed!');
+            },
+            cancel: function () {
+                $.alert('Canceled!');
+            },
+            somethingElse: {
+                text: 'Something else',
+                btnClass: 'btn-blue',
+                keys: ['enter', 'shift'],
+                action: function () {
+                    $.alert('Something else?');
+                }
+            }
+        }
+    });
+}
+
+function alert(messaje) {
+    Swal.fire({
+        title: 'Error!',
+        text: messaje,
+        icon: 'error'
+    });
+}

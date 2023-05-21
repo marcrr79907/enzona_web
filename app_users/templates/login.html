@@ -5,6 +5,7 @@
 <head>
     <script src="{% static 'js/functions.js' %}"></script>
     <script src="{% static 'lib/sweetalert2/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'lib/jquery-confirm.js' %}"></script>
 </head>
 <div id="main">
     
@@ -12,6 +13,7 @@
         <h3 class="text-center">{{ title }}</h3>
         <p class="text-center" style="font-size: 20px;">Ingrese usuario y contraseña</p>
         <form method="POST" class="text-start" id="form-login">
+            <input type="hidden" name="next" value="{{ next }}">
             {% csrf_token %}
             <div data-aos="fade-right" class="mb-3">
                 <label class="form-label" for="username" style="font-size: 20px;"></label>
@@ -39,11 +41,7 @@
                 {% for error in form.non_field_errors %}
                     errors += '{{error}}\n';
                 {% endfor %}
-                Swal.fire({
-                    title: 'Error!',
-                    text: errors,
-                    icon: 'error'
-                });
+                confirm(errors);
             {% endif %}
     </script>
 </div>

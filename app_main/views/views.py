@@ -57,11 +57,6 @@ def signup(request):
             return redirect('error_page')
 
 
-def signout(request):
-    logout(request)
-    return redirect('home')
-
-
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html', {
