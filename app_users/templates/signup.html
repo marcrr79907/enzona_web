@@ -11,7 +11,7 @@
         style="margin-top: 40px;backdrop-filter: blur(0px) grayscale(0%);-webkit-backdrop-filter: blur(0px) grayscale(0%);border-radius: 20px;border-style: dotted;box-shadow: 10px 10px 20px 0px rgb(12,13,14);">
         <div class="image-holder"
             style="background: url(&quot;{% static 'assets/img/puercoregisro.jpg' %}&quot;) center / cover no-repeat;"></div>
-        <form method="POST" style="height: 525px;">
+        <form method="POST" action="." style="height: 525px;">
             
             {% csrf_token %}
             <input type="hidden" value="{{action}}" name="action">

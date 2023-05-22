@@ -46,7 +46,7 @@ class RegisterView(CreateView):
                         phone = Phone_DB.objects.get(number=phone_number)
 
                         if not person.register and not phone.associated:
-                            if request.POST['password'] == request.POST['password2']:
+                            if request.POST['password1'] == request.POST['password2']:
 
                                 data = form.save()
                             else:
@@ -71,5 +71,6 @@ class RegisterView(CreateView):
         context['entity'] = 'User'
         context['list_url'] = reverse_lazy('signup')
         context['action'] = 'add'
+        context['form'] = CustomUserCreationForm
 
         return context
