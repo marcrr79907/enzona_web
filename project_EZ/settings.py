@@ -126,6 +126,8 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 LOGIN_URL = '/login/'
 
+AUTH_USER_MODEL = 'app_users.User'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

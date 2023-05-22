@@ -5,9 +5,7 @@ app_name = 'system'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='home'),
-    path('signup/', views.signup, name='signup'),
     path('operations/', views.operations, name='operations'),
-    path('signin/', views.signin, name='signin'),
     path('error/', views.error_page, name='error_page'),
     path('card_list/', cards_view.CardListView.as_view(), name='card_list'),
     path('card_create/', cards_view.CardCreateView.as_view(), name='card_create'),

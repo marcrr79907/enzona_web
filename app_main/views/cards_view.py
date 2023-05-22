@@ -35,13 +35,8 @@ class CardCreateView(CreateView):
     form_class = CardForm
     template_name = 'cards/card_create.html'
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        return response
-
     @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -50,7 +45,7 @@ class CardCreateView(CreateView):
         try:
             action = request.POST['action']
             if action == 'add':
-                form = CardForm(request.POST)
+                form = self.get_form()
 
                 if form.is_valid():
                     card = Bank_DB.objects.get(
@@ -59,7 +54,7 @@ class CardCreateView(CreateView):
                         if request.POST['pin'] == card.pin:
 
                             data = form.save()
-                            print(form)
+
                         else:
                             data['error'] = 'Pin incorrecto'
                     else:

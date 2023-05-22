@@ -1,5 +1,6 @@
 from django.db import models
-from datetime import datetime
+
+from app_users.models import User
 
 # Create your models here.
 
@@ -28,8 +29,8 @@ class Person_DB(models.Model):
 
     first_name = models.CharField(max_length=50, null=False)
     last_name = models.CharField(max_length=50, null=False)
-    gener = models.CharField(max_length=50, null=False)
-    born_date = models.DateField(null=False)
+    gender = models.CharField(max_length=50, null=False)
+    date_birthday = models.DateField(null=False)
     address = models.CharField(max_length=50, null=False)
     dni = models.IntegerField(unique=True, null=False)
     register = models.BooleanField(default=False)
@@ -92,41 +93,18 @@ class Gas_Service(models.Model):
 
 # ____________________ENZONA DATA BASES____________________
 
-class User(models.Model):
-
-    ci = models.CharField(max_length=200, unique=True, null=False)
-    user_name = models.CharField(max_length=200, unique=True, null=False)
-    password = models.CharField(
-        max_length=200, null=False)
-    phone = models.IntegerField(unique=True, null=False)
-    id_person = models.ForeignKey(
-        Person_DB, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
-        ordering = ['id']
-
-    def __str__(self):
-        return self.user_name
-
 
 class User_Card(models.Model):
     card_number = models.CharField(max_length=200, unique=True)
-    date_ex = models.DateField()
-    currency_type = models.CharField(max_length=20)
     balance = models.PositiveIntegerField(default=0)
     pin = models.CharField(max_length=4)
 
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Tarjeta'
         verbose_name_plural = 'Tarjetas'
         ordering = ['id']
-
-    def __str__(self):
-        return f'Número tarjeta: {self.card_number}'
 
 
 """
