@@ -1,21 +1,27 @@
-from django.forms import ModelForm
-from django.shortcuts import get_object_or_404
-from .models import *
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
+from app_users.models import User
 
 
-class CardForm(ModelForm):
-
-    class Meta:
-        model = User_Card
-        fields = ['card_number', 'pin']
+class CustomUserCreationForm(UserCreationForm):
+    password2 = forms.CharField(widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form_control'
             form.field.widget.attrs['autocomplete'] = 'off'
-        self.fields['card_number'].widget.attrs['autofocus'] = True
+        self.fields['username'].widget.attrs['autofocus'] = True
+
+    class Meta:
+        model = User
+        fields = ('username', 'ci', 'phone', 'password1', 'password2')
+        error_messages = {
+            'username': {
+                'unique': 'Ya existe un usuario con ese nombre de usuario.'
+            }
+        }
 
     def save(self, commit=True):
         data = {}

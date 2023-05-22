@@ -21,7 +21,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" data-aos="fade-right" for="password" style="font-size: 20px;"></label>
+                
                 <input class="form-control" type="password" name="password" placeholder="Contraseña" style="background: rgba(255,255,255,0.79);">
             </div>
             <div class="mb-3 text-center">
@@ -41,7 +41,7 @@
                 {% for error in form.non_field_errors %}
                     errors += '{{error}}\n';
                 {% endfor %}
-                conf();
+                messaje_error(errors);
             {% endif %}
     </script>
 </div>

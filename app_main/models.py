@@ -1,5 +1,7 @@
-from django.db import models
 from datetime import datetime
+from django.db import models
+
+from app_users.models import User
 
 # Create your models here.
 
@@ -28,8 +30,8 @@ class Person_DB(models.Model):
 
     first_name = models.CharField(max_length=50, null=False)
     last_name = models.CharField(max_length=50, null=False)
-    gener = models.CharField(max_length=50, null=False)
-    born_date = models.DateField(null=False)
+    gender = models.CharField(max_length=50, null=False)
+    date_birthday = models.DateField(null=False)
     address = models.CharField(max_length=50, null=False)
     dni = models.IntegerField(unique=True, null=False)
     register = models.BooleanField(default=False)
@@ -56,7 +58,6 @@ class Phone_DB(models.Model):
         return f'Número: {self.number} Nombre Propietario: {self.propietary_name} Asociado: {self.associated}'
 
 
-"""
 class Electricity_Service(models.Model):
 
     electricity_id = models.IntegerField(unique=True, null=False)
@@ -86,50 +87,26 @@ class Gas_Service(models.Model):
     def __str__(self):
         return f'ID_Gas: {self.gas_id} Importe: {self.gas_cost} Chequeado: {self.checked}'
 
-"""
+
 # -----------------Fin Data Bases------------------#
 
 
 # ____________________ENZONA DATA BASES____________________
 
-class User(models.Model):
-
-    ci = models.CharField(max_length=200, unique=True, null=False)
-    user_name = models.CharField(max_length=200, unique=True, null=False)
-    password = models.CharField(
-        max_length=200, null=False)
-    phone = models.IntegerField(unique=True, null=False)
-    id_person = models.ForeignKey(
-        Person_DB, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
-        ordering = ['id']
-
-    def __str__(self):
-        return self.user_name
-
 
 class User_Card(models.Model):
     card_number = models.CharField(max_length=200, unique=True)
-    date_ex = models.DateField()
-    currency_type = models.CharField(max_length=20)
     balance = models.PositiveIntegerField(default=0)
     pin = models.CharField(max_length=4)
 
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Tarjeta'
         verbose_name_plural = 'Tarjetas'
         ordering = ['id']
 
-    def __str__(self):
-        return f'Número tarjeta: {self.card_number}'
 
-
-"""
 class Transfer(models.Model):
 
     origin_card = models.IntegerField(null=False)
@@ -147,7 +124,6 @@ class Transfer(models.Model):
         return f'Origen: {self.origin_card} Destino: {self.dest_card} Cantidad: {self.import_transfer}'
 
 
-
 class Electricity_Service_Pay(models.Model):
 
     service_id = models.IntegerField(unique=True, null=False)
@@ -157,7 +133,7 @@ class Electricity_Service_Pay(models.Model):
     date = models.DateField(default=datetime.now)
 
     id_electricity = models.ForeignKey(
-        Electricity_Service, on_delete=models.CASCADE, null=False)
+        Electricity_Service, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Pago_Electricidad'
@@ -175,7 +151,7 @@ class Gas_Service_Pay(models.Model):
     date = models.DateField(default=datetime.now)
 
     id_gas = models.ForeignKey(
-        Gas_Service, on_delete=models.SET_NULL, null=False)
+        Gas_Service, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Pago_Gas'
@@ -188,7 +164,7 @@ class Gas_Service_Pay(models.Model):
 class Destinatary(models.Model):
     name = models.CharField(max_length=50)
     associated_card = models.ForeignKey(
-        Bank_DB, on_delete=models.CASCADE, null=False)
+        Bank_DB, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Destinatario'
@@ -197,5 +173,5 @@ class Destinatary(models.Model):
 
     def __str__(self) -> str:
         return f'Nombre: {self.name} Tarjeta: {self.associated_card}'
-"""
+
 # ____________________ENZONA DATA BASES____________________
