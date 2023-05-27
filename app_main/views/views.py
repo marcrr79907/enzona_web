@@ -66,7 +66,7 @@ def signout(request):
 
 def signin(request):
     if request.method == 'GET':
-        return render(request, 'signin.html', {
+        return render(request, 'login.html', {
             'form': AuthenticationForm
         })
     else:
@@ -75,7 +75,7 @@ def signin(request):
         print(request.POST)
         if user is None:
             print('jhhjhhjh')
-            return render(request, 'signin.html', {
+            return render(request, 'login.html', {
                 'form': AuthenticationForm,
                 'error': 'user or pass are incorrect'
             })

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body style="background: url(&quot;{% static 'assets/img/774369.jpg' %} &quot;) center / cover no-repeat;">
+    
+    <div class="row justify-content-center" style="padding-top: 40px;padding-right: 20px;padding-bottom: 20px;">
+        <div class="col-xl-10 col-xxl-9">
+            <div class="card shadow" style="background: rgb(255, 255, 255);border-radius: 10px;">
+                <div class="card-header d-flex justify-content-center align-items-center flex-wrap justify-content-sm-between gap-3">
+                    <h5 class="display-6 text-nowrap text-capitalize mb-0">Mis Tarjetas</h5>
+                    <div><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> Nueva Tarjeta </button>
+                        <div class="modal fade" role="dialog" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="fs-5 modal-title" id="exampleModalLabel">Nueva Tarjeta</h1><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="Add-Target" class="Form Target">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6"><label class="col-form-label form-label">Numero:</label></div>
+                                                <div class="col-12 col-sm-6"><input class="form-control form-control" type="text" id="numero"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6"><label class="col-form-label form-label">Expira:</label></div>
+                                                <div class="col-12 col-sm-6"><input class="form-control form-control" id="fecha" type="date"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer"><button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button><button class="btn btn-success" id="Guardar" type="button">Aceptar</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.List</th>
+                                    <th>Nombre</th>
+                                    <th>Numero</th>
+                                    <th>Moneda</th>
+                                    <th>Banco</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-truncate" style="max-width: 200px;">1</td>
+                                    <td class="text-truncate" style="max-width: 200px;">Jmeno Prijmení</td>
+                                    <td class="text-truncate" style="max-width: 200px;">1234567890123456</td>
+                                    <td>Cup</td>
+                                    <td>Metropolitano</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group"><button class="btn btn-success" type="button"><i class="material-icons">attach_money</i></button><button class="btn btn-warning" type="button"><i class="material-icons">view_list</i></button><button class="btn btn-danger" type="button"><i class="material-icons">delete</i></button></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 350px;position: static;"></div>
+   
+    
+</body>
+
+</html>

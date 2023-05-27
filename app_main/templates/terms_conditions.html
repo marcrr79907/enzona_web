@@ -1,0 +1,70 @@
+{% extends 'base/body.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <h2 class="text-center" style="color: rgb(237,237,237);">Términos y condiciones</h2>
+    <section class="container px-lg-6">
+        <section data-aos="fade-up" class="container row my-4">
+            <div class="col-md-6"><img data-bss-hover-animate="pulse" src="{% static 'img/galaxy.jpg' %} " alt="galaxia" class="imagen-seguridad fs-4" style="width: 546px;min-width: auto;" width="546" height="357"></div>
+            <div class="col-md-6 fs-6 bg-2 order-md-0 radio centrar separar" style="background: rgba(201,197,197,0.66);">
+                <h3>¿Cómo utilizaremos su información?</h3>
+                <p class="fs-5">Utilizamos su información para proporcionarle Enzona, permitirle comunicarse con otros usuarios y usar las funciones de la plataforma abierta de Enzona Usamos su información para configurar la cuenta, facilitar las comunicaciones, brindar ayuda, permitirles acceso a las funciones de Enzona y mejorar Enzona. Además, Enzona usa los canales de contacto proporcionados por usted, tales como número de teléfono móvil o dirección de correo electrónico, para verificar y proteger su cuenta y con fines administrativos importantes.<br> <br><br></p>
+            </div>
+        </section>
+        <section data-aos="fade-up" class="container row my-4">
+            <div class="col-md-6 order-md-1"><img data-bss-hover-animate="pulse" src="{% static 'img/notification.jpg' %} " alt="logo notificacion" class="imagen-seguridad fs-4" style="width: 546px;" width="546" height="355"></div>
+            <div class="col-md-6 fs-6 bg-2 order-md-0 radio centrar separar" style="background: rgba(201,197,197,0.66);">
+                <h3>Notificaciones en tiempo real</h3>
+                <p class="fs-5"><br>Si ocurre algún cambio importante en esta Política de Privacidad, le enviaremos una notificación antes de que el cambio entre en vigor. Si tiene dudas no resueltas sobre la privacidad o sobre el uso de datos que no hayamos abordado de manera satisfactoria.<br> <br><br></p>
+            </div>
+        </section>
+        <section data-aos="fade-up" class="container row my-4">
+            <div class="col-md-6"><img data-bss-hover-animate="pulse" src="{% static 'img/vault.jpg' %} " alt="galaxia" class="imagen-seguridad fs-4" style="width: 546px;" width="546" height="364"></div>
+            <div class="col-md-6 fs-6 bg-3 radio centrar separar" style="background: rgba(201,197,197,0.66);">
+                <h3 style="color: rgb(255,255,255);">Seguridad de su información personal</h3>
+                <p class="fs-5" style="color: rgb(255,255,255);"><br>Usamos una variedad de tecnologías y procedimientos de seguridad con el fin de evitar pérdidas, usos indebidos, accesos no autorizados o divulgaciones de la información; por ejemplo, usamos tecnología de cifrado (como TLS) para proteger su información.<br> <br><br></p>
+            </div>
+        </section>
+    </section>
+    <section class="container">
+        <h2 data-aos="fade-right" style="color: rgb(248,252,255);">Tips de seguridad</h2>
+        <div data-aos="fade-up" class="mb-5">
+            <div class="accordion" role="tablist" id="accordionuno">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab" id="headingOne"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><h6 class="text-primary">Qué datos recopilamos sobre usted?</h6></button></h2>
+                    <div class="accordion-collapse collapse item-1 show" role="tabpanel" data-bs-parent="#accordionuno" id="collapseOne" aria-labelledby="headingOne">
+                        <div class="accordion-body">
+                            <p>Recopilamos información cuando usted configura su cuenta de Enzona y usa los servicios disponibles dentro de Enzona, tales como publicar fotos en sus transmisiones de momentos o seguir cuentas oficiales. Para configurar su cuenta, requerimos su apodo, número de teléfono celular y una contraseña.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab" id="headingTwo"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="border-radius: 10px;"><h6 class="text-primary"> Dónde procesamos sus datos?  </h6></button></h2>
+                    <div class="accordion-collapse collapse item-2" role="tabpanel" data-bs-parent="#accordionuno" id="collapseTwo" aria-labelledby="headingTwo">
+                        <div class="accordion-body">
+                            <p>Nuestros servidores están ubicados en el domicilio legal de XETID en Calle 296-A entre ave 207 y 203, Municipio Boyeros, Provincia La Habana. También contamos con equipos de apoyo, ingeniería y otros que ayudan a que le proporcionemos Enzona, los cuales se encuentran ubicados en XETID. Se puede acceder a sus datos desde tales ubicaciones. Se toman rigurosas medidas de control internas para limitar el acceso a sus datos estrictamente a los miembros del equipo designados.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab" id="headingThree"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="border-radius: 10px;"><h6 class="text-primary">  Por cuánto tiempo mantenemos sus datos?                </h6></button></h2>
+                    <div class="accordion-collapse collapse item-3" role="tabpanel" data-bs-parent="#accordionuno" id="collapseThree" aria-labelledby="headingThree">
+                        <div class="accordion-body">
+                            <p>El tiempo durante el cual conservamos su información depende del tipo de información; por ejemplo, los datos de inicio de sesión se conservan por un período de 90 días a partir de la fecha en la que se recopilaron los datos. Si interesa que eliminemos su cuenta de Enzona, su información se borrará durante los 60 días posteriores a la última verificación de titularidad de la cuenta y a la recepción de su solicitud de eliminación de la cuenta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab" id="headingfour"><button class="accordion-button collapsed collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="border-radius: 10px;"><h6 class="text-primary"> Cómo puedo ejercer mis decheros sobre mis datos?
+</h6></button></h2>
+                    <div class="accordion-collapse collapse item-4" role="tabpanel" data-bs-parent="#accordionuno" id="collapseFour" aria-labelledby="headingFou">
+                        <div class="accordion-body">
+                            <p>Puede tener derechos especiales sobre sus datos y sobre cómo los utilizamos. Estos incluyen cómo puede acceder a los datos, borrar los datos, restringir cómo se pueden usar sus datos, objetar su uso, y obtener una copia de su información.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock  %}
