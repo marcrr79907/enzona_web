@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+<head>
+    <script src="{% static 'js/functions.js' %}"></script>
+    <script src="{% static 'lib/sweetalert2/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'lib/jquery-confirm.js' %}"></script>
+</head>
+{% block content %}
+
+<div class="text-center" data-aos="fade-down" id="info" style="border-radius: 15px;height: 500px;"><img id="ventaspro-logo" src="{% static 'assets/img/enzona%20-%20copia.jpg' %}" width="64" height="63" style="border-radius: 90px;">
+    
+    <p class="text-center" style="font-size: 20px;">{{ title }}</p>
+    {% include 'form.html' %}
+    
+</div>
+{% endblock  %}
