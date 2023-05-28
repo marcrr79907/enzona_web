@@ -1,0 +1,22 @@
+.radio {
+  border-radius: 30px;
+}
+
+.separar {
+  margin: 10px;
+  padding: 10px;
+  height: 350px;
+  max-width: 70ch;
+}
+
+.bg-2 {
+  background: #0F2027;
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+  color: #fff;
+}
+
+footer {
+  margin-bottom: -20px;
+}
+

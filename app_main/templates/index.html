@@ -1,164 +1,163 @@
-{% extends 'base/base.html' %}
+{% extends 'base/body.html' %}
 {% load static %}
+
 {% block content %}
-<section>
-    <div class="carousel slide data-ride=&quot;carousel&quot; data-interval=&quot;1000&quot;">
-        <div class="swiper-container" style="height: 500px;">
-            <div class="swiper-wrapper" style="height: 500px;">
-                <div data-aos="fade" class="swiper-slide" style="background: url(&quot;{% static 'assets/img/2.jpg' %} &quot;) center / cover no-repeat;height: 500px;display: flex;border-radius: 20px;"></div>
-                <div class="pulse animated swiper-slide" style="height: 500px;background: url(&quot;{% static '' %}assets/img/f4.jpg&quot;) center / cover no-repeat;border-radius: 20px;"></div>
-                <div class="pulse animated swiper-slide" style="background: url(&quot;{% static 'assets/img/cajero.jpg' %}&quot;) center center / cover no-repeat;height: 500px;border-radius: 20px;"></div>
+<div class="carousel slide data-ride=&quot;carousel&quot; data-interval=&quot;1000&quot;">
+    <div class="swiper-container" style="height: 500px;">
+        <div class="swiper-wrapper" style="height: 500px;">
+            <div data-aos="fade" class="swiper-slide" style="background: url(&quot;{% static 'img/2.jpg' %} &quot;) center / cover no-repeat;height: 500px;display: flex;border-radius: 20px;"></div>
+            <div class="pulse animated swiper-slide" style="height: 500px;background: url(&quot;{% static 'img/f4.jpg' %} &quot;) center / cover no-repeat;border-radius: 20px;"></div>
+            <div class="pulse animated swiper-slide" style="background: url(&quot;{% static 'img/cajero.jpg' %} &quot;) center center / cover no-repeat;height: 500px;border-radius: 20px;"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div data-bss-hover-animate="wobble" class="swiper-button-prev"></div>
+        <div data-bss-hover-animate="wobble" class="swiper-button-next"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-8 col-xl-6 mx-auto p-4" style="width: 800px;">
+                    <div class="d-flex align-items-center align-items-md-start align-items-xl-center" data-aos="fade-right" style="border-radius: 30px;border-width: 1px;background: rgba(255,255,255,0);">
+                        <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center me-4 d-inline-block bs-icon" data-bss-hover-animate="tada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-check">
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                                <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+                            </svg></div>
+                        <div>
+                            <h4 style="font-size: 30px;color: rgb(255,255,255);"><br>La Plataforma ENZONA</h4>
+                            <p style="font-size: 20px;color: #ffffff;">Te provee servicios como persona natural o jurídica para que realices operaciones financieras y comerciales, además te brinda sus API para crear con el concurso y el talento de todos, innovadores productos y servicios en la economía digital que eleven la calidad de vida de los cubanos.</p>
+                        </div>
+                    </div>
+                    <hr class="my-5">
+                    <div class="d-flex align-items-center align-items-md-start align-items-xl-center" data-aos="fade-right" style="background: rgba(255,255,255,0);border-width: 1px;border-color: rgba(0,0,0,0.33);border-radius: 30px;">
+                        <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center order-last ms-4 d-inline-block bs-icon" data-bss-hover-animate="tada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bookmark-check">
+                                <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
+                            </svg></div>
+                        <div>
+                            <h4 style="transform: translate(23px);font-size: 30px;color: rgb(255,255,255);"><br>Regístrese en ENZONA.</h4>
+                            <p style="font-size: 20px;margin-left: 10px;color: #ffffff;">Use su cuenta de correo electrónico o su número de teléfono móvil para registrarse e identificarse. Proporcione sus datos reales porque va a interactuar con muchas personas en la Plataforma, recuerde que la transparencia también es seguridad.</p>
+                        </div>
+                    </div>
+                    <hr class="my-5">
+                    <div class="d-flex align-items-center align-items-md-start align-items-xl-center" data-aos="fade-right" style="border-width: 1px;border-radius: 30px;background: rgba(255,255,255,0);">
+                        <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center me-4 d-inline-block bs-icon" data-bss-hover-animate="tada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></path>
+                            </svg></div>
+                        <div>
+                            <h4 style="font-size: 30px;color: rgb(255,255,255);"><br>Vincule sus tarjetas.</h4>
+                            <p style="font-size: 20px;color: #ffffff;">Si posee tarjetas emitidas por BANMET, BPA o BANDEC en CUP o USD las puede incorporar a la Plataforma. ENZONA le permitirá antes de realizar cualquier operación seleccionar la tarjeta que desee.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="swiper-pagination"></div>
-            <div data-bss-hover-animate="wobble" class="swiper-button-prev"></div>
-            <div data-bss-hover-animate="wobble" class="swiper-button-next"></div>
+        </div>
+        <div class="col"><img class="img-fluid" data-aos="fade-left" data-aos-duration="900" src="{% static 'img/1.jpg' %} " style="margin-top: 30px;border-radius: 30px;opacity: 0.93;filter: saturate(156%);width: auto;height: auto;"></div>
+    </div>
+</div>
+<div class="container py-4 py-xl-5">
+    <div class="row mb-5" data-aos="flip-down">
+        <div class="col-md-8 col-xl-6 text-center mx-auto" style="width: 800px;">
+            <h2 style="color: #ffffff;">¡Ya está ENZONA!</h2>
+            <p style="background: rgba(255,255,255,0);border-radius: 15px;color: rgb(255,255,255);font-size: 20px;">Ahora podrá disfrutar de la efectividad de nuestros servicios en sus operaciones financieras o comerciales. Usamos ENZONA porque somos más, +rápidos +eficientes +felices</p>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-8 col-xl-6 mx-auto p-4" style="width: 800px;">
-                        <div class="d-flex align-items-center align-items-md-start align-items-xl-center" data-aos="fade-right" style="border-radius: 30px;border-width: 1px;background: rgba(255,255,255,0);">
-                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center me-4 d-inline-block bs-icon" data-bss-hover-animate="tada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-check">
-                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-                                    <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
-                                </svg></div>
-                            <div>
-                                <h4 style="font-size: 30px;color: rgb(255,255,255);"><br>La Plataforma ENZONA</h4>
-                                <p style="font-size: 20px;color: #ffffff;">Te provee servicios como persona natural o jurídica para que realices operaciones financieras y comerciales, además te brinda sus API para crear con el concurso y el talento de todos, innovadores productos y servicios en la economía digital que eleven la calidad de vida de los cubanos.</p>
-                            </div>
-                        </div>
-                        <hr class="my-5">
-                        <div class="d-flex align-items-center align-items-md-start align-items-xl-center" data-aos="fade-right" style="background: rgba(255,255,255,0);border-width: 1px;border-color: rgba(0,0,0,0.33);border-radius: 30px;">
-                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center order-last ms-4 d-inline-block bs-icon" data-bss-hover-animate="tada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bookmark-check">
-                                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
-                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
-                                </svg></div>
-                            <div>
-                                <h4 style="transform: translate(23px);font-size: 30px;color: rgb(255,255,255);"><br>Regístrese en ENZONA.</h4>
-                                <p style="font-size: 20px;margin-left: 10px;color: #ffffff;">Use su cuenta de correo electrónico o su número de teléfono móvil para registrarse e identificarse. Proporcione sus datos reales porque va a interactuar con muchas personas en la Plataforma, recuerde que la transparencia también es seguridad.</p>
-                            </div>
-                        </div>
-                        <hr class="my-5">
-                        <div class="d-flex align-items-center align-items-md-start align-items-xl-center" data-aos="fade-right" style="border-width: 1px;border-radius: 30px;background: rgba(255,255,255,0);">
-                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center me-4 d-inline-block bs-icon" data-bss-hover-animate="tada"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
-                                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></path>
-                                </svg></div>
-                            <div>
-                                <h4 style="font-size: 30px;color: rgb(255,255,255);"><br>Vincule sus tarjetas.</h4>
-                                <p style="font-size: 20px;color: #ffffff;">Si posee tarjetas emitidas por BANMET, BPA o BANDEC en CUP o USD las puede incorporar a la Plataforma. ENZONA le permitirá antes de realizar cualquier operación seleccionar la tarjeta que desee.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6"><img data-aos="fade-left" data-aos-duration="900" src="{% static 'assets/img/1.jpg' %}" style="margin-top: 30px;border-radius: 30px;opacity: 0.93;filter: saturate(156%);"></div>
-        </div>
-    </div>
-    <div class="container py-4 py-xl-5">
-        <div class="row mb-5" data-aos="flip-down">
-            <div class="col-md-8 col-xl-6 text-center mx-auto" style="width: 800px;">
-                <h2 style="color: #ffffff;">¡Ya está ENZONA!</h2>
-                <p style="background: rgba(255,255,255,0);border-radius: 15px;color: rgb(255,255,255);font-size: 20px;">Ahora podrá disfrutar de la efectividad de nuestros servicios en sus operaciones financieras o comerciales. Usamos ENZONA porque somos más, +rápidos +eficientes +felices</p>
-            </div>
-        </div>
-        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3" data-aos="flip-down" data-aos-duration="900">
-            <div class="col">
-                <div class="d-flex">
-                    <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon" data-bss-hover-animate="bounce" style="transform: scale(1.63);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-shield-check">
-                            <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"></path>
-                            <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
-                        </svg></div>
-                    <div class="px-3">
-                        <h4 style="color: #ffffff;margin-left: 10px;">Segundo factor</h4>
-                        <p style="background: rgba(255,255,255,0);border-radius: 15px;color: #ffffff;font-size: 20px;">Nuestra tecnología te perite acceder a tu cuenta usando tu huella digital.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-flex">
-                    <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon" data-bss-hover-animate="bounce" style="transform: scale(1.63);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-                        </svg></div>
-                    <div class="px-3">
-                        <h4 style="color: #ffffff;margin-left: 10px;">Personal</h4>
-                        <p style="background: rgba(255,255,255,0);border-radius: 15px;color: #ffffff;font-size: 20px;">Vas a poder ingresar desde un dispositivo a la vez a tu cuenta.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-flex">
-                    <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon" data-bss-hover-animate="bounce" style="transform: scale(1.63);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-robot">
-                            <path fill-rule="evenodd" d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Zm-8 5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 1 .182.135l.842 1.7.754-.785a.25.25 0 0 1 .166-.076 24.85 24.85 0 0 0 1.98-.19.25.25 0 0 1 .068.496 25.29 25.29 0 0 1-1.922.187l-.932.971a.25.25 0 0 1-.404-.062l-.847-1.71-.754.736a.25.25 0 0 1-.189.07 25.36 25.36 0 0 1-2.02-.192.25.25 0 1 1 .068-.495c.512.07 1.143.138 1.87.182l.921-.9a.25.25 0 0 1 .217-.067Z"></path>
-                        </svg></div>
-                    <div class="px-3">
-                        <h4 style="color: #ffffff;margin-left: 10px;">100% Encriptado</h4>
-                        <p style="background: rgba(255,255,255,0);border-radius: 15px;color: #ffffff;font-size: 20px;">Usamos un Token invisible para todas las operaciones que hagas. Todas las transacciones son encriptadas para tu mayor seguridad.</p>
-                    </div>
+    <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3" data-aos="flip-down" data-aos-duration="900">
+        <div class="col" style="width: 400px;">
+            <div class="d-flex">
+                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon" data-bss-hover-animate="bounce" style="transform: scale(1.63);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-shield-check">
+                        <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"></path>
+                        <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+                    </svg></div>
+                <div class="px-3">
+                    <h4 style="color: #ffffff;margin-left: 10px;">Segundo factor</h4>
+                    <p style="background: rgba(255,255,255,0);border-radius: 15px;color: #ffffff;font-size: 20px;">Nuestra tecnología te perite acceder a tu cuenta usando tu huella digital.</p>
                 </div>
             </div>
         </div>
-        <section class="py-4 py-xl-5">
-            <h1 class="text-uppercase fw-bold text-white mb-3" data-aos="fade-up" data-aos-duration="800" style="text-align: center;">¿Estás listo para<br> empezar?<br>Súmate a construir el futuro.</h1>
-            <div><a class="btn btn-primary ms-md-2" role="button" data-aos="fade-up" data-aos-duration="800" href="/signup" style="font-size: 20px;transform: translate(560px);">Registrar ahora</a></div><img class="rounded-circle" data-aos="fade-down" data-aos-duration="800" src="{% static 'assets/img/SharedScreenshot3.jpg' %}" style="transform: translate(337px);margin-top: 50px;">
-        </section>
-        <footer class="text-white bg-dark"></footer>
+        <div class="col">
+            <div class="d-flex">
+                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon" data-bss-hover-animate="bounce" style="transform: scale(1.63);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                    </svg></div>
+                <div class="px-3">
+                    <h4 style="color: #ffffff;margin-left: 10px;">Personal</h4>
+                    <p style="background: rgba(255,255,255,0);border-radius: 15px;color: #ffffff;font-size: 20px;">Vas a poder ingresar desde un dispositivo a la vez a tu cuenta.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex">
+                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon" data-bss-hover-animate="bounce" style="transform: scale(1.63);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-robot">
+                        <path fill-rule="evenodd" d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Zm-8 5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 1 .182.135l.842 1.7.754-.785a.25.25 0 0 1 .166-.076 24.85 24.85 0 0 0 1.98-.19.25.25 0 0 1 .068.496 25.29 25.29 0 0 1-1.922.187l-.932.971a.25.25 0 0 1-.404-.062l-.847-1.71-.754.736a.25.25 0 0 1-.189.07 25.36 25.36 0 0 1-2.02-.192.25.25 0 1 1 .068-.495c.512.07 1.143.138 1.87.182l.921-.9a.25.25 0 0 1 .217-.067Z"></path>
+                    </svg></div>
+                <div class="px-3">
+                    <h4 style="color: #ffffff;margin-left: 10px;">100% Encriptado</h4>
+                    <p style="background: rgba(255,255,255,0);border-radius: 15px;color: #ffffff;font-size: 20px;">Usamos un Token invisible para todas las operaciones que hagas. Todas las transacciones son encriptadas para tu mayor seguridad.</p>
+                </div>
+            </div>
+        </div>
     </div>
     <section class="py-4 py-xl-5">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <h2 data-aos="fade-down" style="color: rgb(255,255,255);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-send" style="transform: scale(1.75);margin-right: 10px;">
-                            <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"></path>
-                        </svg>Contáctenos</h2>
+        <h1 class="text-uppercase fw-bold text-white mb-3" data-aos="fade-up" data-aos-duration="800" style="text-align: center;">¿Estás listo para<br> empezar?<br>Súmate a construir el futuro.</h1>
+        <div><a class="btn btn-primary ms-md-2" role="button" data-aos="fade-up" data-aos-duration="800" href="registrar.html" style="font-size: 20px;transform: translate(560px);">Registrar ahora</a></div><img class="rounded-circle img-fluid" data-aos="fade-down" data-aos-duration="800" src="assets/img/SharedScreenshot3.jpg" style="transform: translate(337px);margin-top: 50px;" width="auto" height="auto">
+    </section>
+    <footer class="text-white bg-dark"></footer>
+</div>
+<section class="py-4 py-xl-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 data-aos="fade-down" id="contacto" style="color: rgb(255,255,255);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-send" style="transform: scale(1.75);margin-right: 10px;">
+                        <path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"></path>
+                    </svg>Contáctenos</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-lg-4 col-xl-4" data-aos="fade-right">
+                <div class="d-flex flex-column justify-content-center align-items-start h-100" style="color: rgb(255,255,255);">
+                    <div class="d-flex align-items-center p-3">
+                        <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon" style="transform: scale(1.25);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-telephone">
+                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
+                            </svg></div>
+                        <div class="px-2">
+                            <h6 class="mb-0" style="margin-left: 10px;font-size: 20px;color: rgb(255,255,255);">Teléfonos</h6>
+                            <p class="mb-0" style="margin-left: 10px;">76466925, 59875867<br> 59994334, 59933173</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center p-3">
+                        <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon" style="transform: scale(1.25);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-envelope">
+                                <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
+                            </svg></div>
+                        <div class="px-2">
+                            <h6 class="mb-0" style="margin-left: 10px;font-size: 20px;color: rgb(255,255,255);">Correo</h6>
+                            <p class="mb-0" style="margin-left: 10px;">enzona@xetid.cu<br> soporte@xetid.cu</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center p-3">
+                        <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon" style="transform: scale(1.25);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-pin">
+                                <path d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z"></path>
+                            </svg></div>
+                        <div class="px-2">
+                            <h6 class="mb-0" style="margin-left: 10px;font-size: 20px;color: rgb(255,255,255);">Ubicación</h6>
+                            <p class="mb-0" style="margin-left: 10px;">Calle 296 A entre ave 207 y 203 Boyeros, La Habana, Cuba.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6 col-lg-4 col-xl-4" data-aos="fade-right">
-                    <div class="d-flex flex-column justify-content-center align-items-start h-100" style="color: rgb(255,255,255);">
-                        <div class="d-flex align-items-center p-3">
-                            <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon" style="transform: scale(1.25);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-telephone">
-                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"></path>
-                                </svg></div>
-                            <div class="px-2">
-                                <h6 class="mb-0" style="margin-left: 10px;font-size: 20px;">Teléfonos</h6>
-                                <p class="mb-0" style="margin-left: 10px;">76466925, 59875867<br> 59994334, 59933173</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center p-3">
-                            <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon" style="transform: scale(1.25);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-envelope">
-                                    <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"></path>
-                                </svg></div>
-                            <div class="px-2">
-                                <h6 class="mb-0" style="margin-left: 10px;font-size: 20px;">Correo</h6>
-                                <p class="mb-0" style="margin-left: 10px;">enzona@xetid.cu<br> soporte@xetid.cu</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center p-3">
-                            <div class="bs-icon-md bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon" style="transform: scale(1.25);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-pin">
-                                    <path d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z"></path>
-                                </svg></div>
-                            <div class="px-2">
-                                <h6 class="mb-0" style="margin-left: 10px;font-size: 20px;">Ubicación</h6>
-                                <p class="mb-0" style="margin-left: 10px;">Calle 296 A entre ave 207 y 203 Boyeros, La Habana, Cuba.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-5 col-xl-4">
-                    <div>
-                        <form data-aos="fade-left" class="p-3 p-xl-4" method="post">
-                            <div class="mb-3"><input class="form-control" type="text" id="name-1" name="name" placeholder="Nombre"></div>
-                            <div class="mb-3"><input class="form-control" type="email" id="email-1" name="email" placeholder="Correo Electrónico"></div>
-                            <div class="mb-3"><textarea class="form-control" id="message-1" name="message" rows="6" placeholder="Mensaje"></textarea></div>
-                            <div><button class="btn btn-primary d-block w-100" type="submit">Enviar</button></div>
-                        </form>
-                    </div>
+            <div class="col-md-6 col-lg-5 col-xl-4">
+                <div>
+                    <form data-aos="fade-left" class="p-3 p-xl-4" method="post">
+                        <div class="mb-3"><input class="form-control" type="text" id="name-1" name="name" placeholder="Nombre"></div>
+                        <div class="mb-3"><input class="form-control" type="email" id="email-1" name="email" placeholder="Correo Electrónico"></div>
+                        <div class="mb-3"><textarea class="form-control" id="message-1" name="message" rows="6" placeholder="Mensaje"></textarea></div>
+                        <div><button class="btn btn-primary d-block w-100" type="submit">Enviar</button></div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </section>
 
 {% endblock  %}

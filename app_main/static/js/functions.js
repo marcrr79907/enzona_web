@@ -17,10 +17,6 @@ function messaje_error(obj) {
     });
 }
 
-function conf(params) {
-    alert('sssss');
-}
-
 function alert(messaje) {
     Swal.fire({
         title: 'Error!',

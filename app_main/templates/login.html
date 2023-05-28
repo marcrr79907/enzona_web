@@ -1,0 +1,15 @@
+{% extends 'base/body.html' %}
+{% load static %}
+{% block content %}
+<div id="main" style="border-radius: 0px;">
+    <div class="text-center" data-aos="fade-down" id="info" style="border-radius: 15px;height: 500px;"><img id="ventaspro-logo" src="{% static 'img/enzona%20-%20copia.jpg' %}" width="64" height="63" style="border-radius: 90px;">
+        <p class="text-center" style="font-size: 20px;">Ingrese usuario y contraseña</p>
+        <form class="text-start" id="form-login">
+            <div class="mb-3"><label class="form-label rubberBand animated" id="lbl-usuario" for="txt-usuario" style="font-size: 20px;">Usuario</label><input class="form-control rubberBand animated" type="text" id="txt-usuario" style="background: rgba(255,255,255,0.79);"></div>
+            <div class="mb-3"><label class="form-label rubberBand animated" id="lbl-password" for="txt-password" style="font-size: 20px;">Contraseña</label><input class="form-control rubberBand animated" type="password" id="txt-password" style="background: rgba(255,255,255,0.79);"></div>
+        </form><button class="btn btn-primary" data-bss-hover-animate="bounce" id="btn-sesion" type="submit" style="--bs-primary: #256db4;--bs-primary-rgb: 37,109,180;background: #256db4;font-size: 20px;">Iniciar Sesión</button>
+        <div style="margin-top: 10px;"><a href="registrar.html" style="color: rgb(255,255,255);font-size: 15px;">Registrar ahora</a></div>
+    </div>
+</div>
+
+{% endblock  %}
