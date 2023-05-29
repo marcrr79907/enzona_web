@@ -112,16 +112,13 @@ class Transfer(models.Model):
     origin_card = models.IntegerField(null=False)
     dest_card = models.IntegerField(null=False)
     import_transfer = models.PositiveIntegerField(null=False)
-    confirm_mobile = models.IntegerField(null=False)
+    confirm_mobile = models.IntegerField(null=True)
     date = models.DateField(default=datetime.now)
 
     class Meta:
         verbose_name = 'Transferencia'
         verbose_name_plural = 'Transferencias'
         ordering = ['id']
-
-    def __str__(self):
-        return f'Origen: {self.origin_card} Destino: {self.dest_card} Cantidad: {self.import_transfer}'
 
 
 class Electricity_Service_Pay(models.Model):
@@ -139,9 +136,6 @@ class Electricity_Service_Pay(models.Model):
         verbose_name = 'Pago_Electricidad'
         ordering = ['id']
 
-    def __str__(self) -> str:
-        return f'ID_servicio: {self.service_id} Tipo: {self.service_type} Importe: {self.import_service}'
-
 
 class Gas_Service_Pay(models.Model):
     service_id = models.IntegerField(unique=True, null=False)
@@ -157,9 +151,6 @@ class Gas_Service_Pay(models.Model):
         verbose_name = 'Pago_Gas'
         ordering = ['id']
 
-    def __str__(self) -> str:
-        return f'ID_servicio: {self.service_id} Tipo: {self.service_type} Importe: {self.import_service}'
-
 
 class Destinatary(models.Model):
     name = models.CharField(max_length=50)
@@ -171,7 +162,5 @@ class Destinatary(models.Model):
         verbose_name_plural = 'Destinatarios'
         ordering = ['id']
 
-    def __str__(self) -> str:
-        return f'Nombre: {self.name} Tarjeta: {self.associated_card}'
 
 # ____________________ENZONA DATA BASES____________________

@@ -1,17 +1,16 @@
-
-
+{% load static %}
 <header>
     <nav class="navbar navbar-light navbar-expand-md py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="../main.html" style="font-size: 30px;"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon" style="background: url(&quot;assets/img/enzona%20-%20copia.jpg&quot;) center / cover no-repeat;border-style: none;border-radius: 90px;transform: perspective(0px) scale(1.88);"></span><span style="color: #ffffff;margin-left: 10px;">Enzona</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% url 'system:home' %}" style="font-size: 30px;"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon" style="background: url(&quot;{% static 'img/enzona%20-%20copia.jpg' %}&quot;) center / cover no-repeat;border-style: none;border-radius: 90px;transform: perspective(0px) scale(1.88);"></span><span style="color: #ffffff;margin-left: 10px;">Enzona</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="terms_conditions.html" style="font-size: 20px;color: #ffffff;">Términos y condiciones</a></li>
                     <li class="nav-item"><a class="nav-link" data-bss-hover-animate="pulse" href="#contacto" style="font-size: 20px;color: #ffffff;">Contáctenos</a></li>
-                    {% if user.is_autenticate %}
-                    <a class="btn btn-primary ms-md-2" role="button" href="" style="font-size: 20px;">Cerrar Sesión</a>
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-primary ms-md-2" role="button" href="/logout" style="font-size: 20px;">Cerrar Sesión</a>
                     {% else %}
-                    <a class="btn btn-primary ms-md-2" role="button" href="/login" style="font-size: 20px;">Iniciar Sesión</a>
-                    <a class="btn btn-primary ms-md-2" role="button" href="/signup" style="font-size: 20px;">Registrarse</a>
+                        <a class="btn btn-primary ms-md-2" role="button" href="/login" style="font-size: 20px;">Iniciar Sesión</a>
+                        <a class="btn btn-primary ms-md-2" role="button" href="/register" style="font-size: 20px;">Registrarse</a>
                     {% endif %}
                     
                     

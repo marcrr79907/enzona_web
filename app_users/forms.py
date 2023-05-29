@@ -7,13 +7,6 @@ from app_users.models import User
 class CustomUserCreationForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs['class'] = 'form_control'
-            form.field.widget.attrs['autocomplete'] = 'off'
-        self.fields['username'].widget.attrs['autofocus'] = True
-
     class Meta:
         model = User
         fields = ('username', 'ci', 'phone', 'password1', 'password2')

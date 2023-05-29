@@ -13,16 +13,11 @@ from ..forms import *
 
 class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
     model = Transfer
-    form_class = TranferForm
-    template_name = 'transfers/trnsfer_create.html'
+    form_class = TransferForm
+    template_name = 'transfers/transfer_create.html'
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        form.instance.user_id = self.request.user
-
-        return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -33,15 +28,10 @@ class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
                 form = self.get_form()
 
                 if form.is_valid():
-                    card = Bank_DB.objects.get(
-                        card_number=request.POST['card_number'])
-                    if not card.associated:
-                        if request.POST['pin'] == card.pin:
-                            data = form.save()
-                        else:
-                            data['error'] = 'Pin incorrecto'
-                    else:
-                        data['error'] = 'La tarjeta ya está asociada a un usuario!'
+                    origin = request.POST['origin_card']
+                    dest = request.POST['dest_card']
+                    user_card = User_Card.objects.get(user_id=request.user.id)
+
                 else:
                     data['error'] = form.errors
             else:
@@ -53,9 +43,29 @@ class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Agregar Tarjeta'
-        context['entity'] = 'User_Card'
-        context['list_url'] = reverse_lazy('card_create')
+        context['title'] = 'Nueva Tarjeta'
+        context['entity'] = 'Transfer'
+        context['list_url'] = reverse_lazy('transfer_create')
         context['action'] = 'add'
+
+        return context
+
+
+class CardListView(LoginRequiredMixin, ListView):
+    model = User_Card
+    template_name = 'cards/card_list.html'
+
+    @ method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Listado de transferencias'
+        context['create_url'] = reverse_lazy('transfer_create')
+        context['list_url'] = reverse_lazy('transfer_list')
+        context['entity'] = Transfer
+        context['object_list'] = Transfer.objects.all()
 
         return context

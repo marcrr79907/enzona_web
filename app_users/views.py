@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+import json
+from django.http import HttpResponseBadRequest, JsonResponse
 from app_main.models import Person_DB, Phone_DB
 from app_users.models import User
 from .forms import CustomUserCreationForm
@@ -20,7 +21,7 @@ class UsersLoginView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Bienvenido'
+        context['title'] = 'Ingrese usuario y contraseña'
         return context
 
 
@@ -28,7 +29,7 @@ class RegisterView(CreateView):
 
     model = User
     form_class = CustomUserCreationForm
-    template_name = 'signup.html'
+    template_name = 'register.html'
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -38,26 +39,26 @@ class RegisterView(CreateView):
                 form = self.get_form()
 
                 if form.is_valid():
-                    try:
-                        dni = request.POST['ci']
-                        phone_number = request.POST['phone']
 
-                        person = Person_DB.objects.get(dni=dni)
-                        phone = Phone_DB.objects.get(number=phone_number)
+                    dni = request.POST['ci']
+                    phone_number = request.POST['phone']
 
-                        if not person.register and not phone.associated:
-                            if request.POST['password1'] == request.POST['password2']:
+                    person = Person_DB.objects.get(dni=dni)
+                    phone = Phone_DB.objects.get(number=phone_number)
 
-                                data = form.save()
-                            else:
-                                data['error'] = 'Los campos de contraseña no coinciden!'
+                    if not person.register and not phone.associated:
+                        if request.POST['password1'] == request.POST['password2']:
+
+                            data = form.save()
+
                         else:
-                            data['error'] = 'Carnet de identidad o teléfono ya en uso!'
+                            data['error'] = 'Los campos de contraseña no coinciden!'
+                    else:
+                        data['error'] = 'Carnet de identidad o teléfono ya en uso!'
 
-                    except Exception as e:
-                        data['error'] = str(e)
                 else:
                     data['error'] = form.errors
+
             else:
                 data['error'] = 'No ha ingresado ninguna acción!'
         except Exception as e:
@@ -67,10 +68,9 @@ class RegisterView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Registrar '
+        context['title'] = 'Crea una cuenta'
         context['entity'] = 'User'
-        context['list_url'] = reverse_lazy('signup')
+        context['list_url'] = reverse_lazy('register')
         context['action'] = 'add'
-        context['form'] = CustomUserCreationForm
 
         return context

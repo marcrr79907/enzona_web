@@ -4,15 +4,13 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, F
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404, render, redirect
-from ..mixins import IsSuperuserMixin
 from ..models import *
 from ..forms import *
 
 
-class CardListView(ListView):
+class CardListView(LoginRequiredMixin, ListView):
     model = User_Card
-    template_name = 'cards/card_list.html'
+    template_name = 'card/credit_card.html'
 
     @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -30,10 +28,10 @@ class CardListView(ListView):
         return context
 
 
-class CardCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
+class CardCreateView(LoginRequiredMixin, CreateView):
     model = User_Card
     form_class = CardForm
-    template_name = 'cards/card_create.html'
+    template_name = 'card/credit_card.html'
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -80,11 +78,11 @@ class CardCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
         return context
 
 
-class CardUpdateView(UpdateView):
+class CardUpdateView(LoginRequiredMixin, UpdateView):
     model = User_Card
     form_class = CardForm
-    template_name = 'cards/card_create.html'
-    success_url = reverse_lazy('cards/cards_list')
+    template_name = 'card/credit_card.html'
+    success_url = reverse_lazy('card_update')
 
     @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -108,15 +106,15 @@ class CardUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar Tarjeta'
         context['entity'] = 'User_Card'
-        context['list_url'] = reverse_lazy('card_edit')
+        context['list_url'] = reverse_lazy('card_update')
         context['action'] = 'edit'
 
         return context
 
 
-class CardDeleteView(DeleteView):
+class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
-    template_name = 'cards/card_delete.html'
+    template_name = 'card/credit_card.html'
     success_url = reverse_lazy('card_delete')
 
     @ method_decorator(login_required)
