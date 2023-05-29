@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.views.generic import ListView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from ..models import *
@@ -31,7 +31,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
     model = User_Card
     form_class = CardForm
     template_name = 'card/credit_card.html'
-    success_url = reverse_lazy('card_list')
+    success_url = reverse_lazy('card_create')
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -66,7 +66,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return JsonResponse(data)
+        return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,3 +83,7 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        card = User_Card.objects.get(id=self.get_object())
+        card.delete()
+        return HttpResponseRedirect(self.get_success_url())
