@@ -53,6 +53,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
                             form.instance.bank_type = card.bank_type
                             form.instance.currency_type = card.currency_type
                             card.associated = True
+                            print(card)
 
                             data = form.save()
                         else:
