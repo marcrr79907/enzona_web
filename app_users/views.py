@@ -81,6 +81,13 @@ class RegisterView(CreateView):
         return context
 
 
+class UserLogoutView(LogoutView):
+    
+    self.request.session.set_expiry(0)
+    {% csrf_token expires=0 %}
+
+
+
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = CustomUserCreationForm
