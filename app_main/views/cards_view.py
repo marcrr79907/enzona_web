@@ -1,8 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from ..models import *
 from ..forms import *
@@ -18,19 +16,13 @@ class CardListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         cards_list = User_Card.objects.filter(
             user=self.request.user)
-        cards = []
-        for c in cards_list:
-            try:
-                cards.append(Bank_DB.objects.get(card_number=c.card_number))
-            except:
-                pass
 
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Listado de tarjetas'
-        context['create_url'] = reverse_lazy('card_create')
-        context['list_url'] = reverse_lazy('card_list')
+        context['title_list'] = 'Mis Tarjetas'
+        context['title'] = 'Agregar Tarjeta'
         context['entity'] = User_Card
-        context['object_list'] = cards
+        context['object_list'] = cards_list
+        context['action'] = 'add'
 
         return context
 
@@ -39,6 +31,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
     model = User_Card
     form_class = CardForm
     template_name = 'card/credit_card.html'
+    success_url = reverse_lazy('card_list')
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -47,6 +40,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
         data = {}
         try:
             action = request.POST['action']
+            print(action)
             if action == 'add':
                 form = self.get_form()
 
@@ -56,6 +50,10 @@ class CardCreateView(LoginRequiredMixin, CreateView):
                     if not card.associated:
                         if request.POST['pin'] == card.pin:
                             form.instance.user = self.request.user
+                            form.instance.bank_type = card.bank_type
+                            form.instance.currency_type = card.currency_type
+                            card.associated = True
+
                             data = form.save()
                         else:
                             data['error'] = 'Pin incorrecto'
@@ -72,10 +70,8 @@ class CardCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Agregar Tarjeta'
         context['entity'] = 'User_Card'
         context['list_url'] = reverse_lazy('card_create')
-        context['action'] = 'add'
 
         return context
 
@@ -83,19 +79,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
 class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
     template_name = 'card/credit_card.html'
-    success_url = reverse_lazy('card_create')
-
-
-class CardFormView(FormView):
-    form_class = CardForm
-    template_name = 'cards/credit_card.html'
     success_url = reverse_lazy('card_list')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Formulario Tarjeta'
-        context['entity'] = 'User_Card'
-        context['list_url'] = reverse_lazy('card_list')
-        context['action'] = 'add'
-
-        return context
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)

@@ -7,6 +7,7 @@
         <form method="post" action="." style="height: 525px;">
             {% csrf_token %}
             <input type="hidden" name="action" value="{{action}}">
+            <input type="hidden" name="next" value="{{next}}">
             <h2 class="text-center"><strong>{{title}}</strong>.</h2>
             <div>
                 <input class="form-control" type="text" name="username" placeholder="Usuario" style="margin-bottom: 10px;">
@@ -46,12 +47,7 @@
                     errors += '{{error}}\n';
                 {% endfor %}
                 messaje_error(errors);
-            {% else %}
-            Swal.fire({
-                title: 'Exito!',
-                text: 'Usuario registrado exitosamente',
-                icon: 'success'
-                });    
+               
             {% endif %}
             
         </script>

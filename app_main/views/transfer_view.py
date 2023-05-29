@@ -6,7 +6,6 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render, redirect
-from ..mixins import IsSuperuserMixin
 from ..models import *
 from ..forms import *
 
@@ -63,19 +62,17 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
-class CardListView(LoginRequiredMixin, ListView):
+class TranferListView(LoginRequiredMixin, ListView):
     model = User_Card
     template_name = 'transferencias/transferencias.html'
 
     def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de transferencias'
         context['create_url'] = reverse_lazy('transfer_create')
-        context['list_url'] = reverse_lazy('transferencias')
         context['entity'] = Transfer
         context['object_list'] = Transfer.objects.filter(id=self.request.user)
 

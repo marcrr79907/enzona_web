@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import JsonResponse
 from app_main.models import Person_DB, Phone_DB
 from app_users.models import User
 from .forms import CustomUserCreationForm
@@ -48,6 +48,8 @@ class RegisterView(CreateView):
 
                     if not person.register and not phone.associated:
                         if request.POST['password1'] == request.POST['password2']:
+                            person.register = True
+                            phone.associated = True
 
                             data = form.save()
 

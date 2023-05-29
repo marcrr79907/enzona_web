@@ -5,17 +5,17 @@
     <div class="col-xl-10 col-xxl-9">
         <div class="card shadow" style="background: rgb(255, 255, 255);border-radius: 10px;">
             <div class="card-header d-flex justify-content-center align-items-center flex-wrap justify-content-sm-between gap-3">
-                <h5 class="display-6 text-nowrap text-capitalize mb-0">Mis Tarjetas</h5>
+                <h5 class="display-6 text-nowrap text-capitalize mb-0">{{title_list}}</h5>
                 <div><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> Nueva Tarjeta </button>
                     <div class="modal fade" role="dialog" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="fs-5 modal-title" id="exampleModalLabel">Nueva Tarjeta</h1>
+                                    <h1 class="fs-5 modal-title" id="exampleModalLabel">{{title}}</h1>
                                     <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action=".">
+                                    <form method="POST" action="{{list_url}}">
                                         {% csrf_token %}
                                         <input type="hidden" name="action" value="{{action}}">
                                         <div class="row">
@@ -60,22 +60,26 @@
                         </thead>
                         <tbody>
                             {% for card in object_list %}
-                                <tr>
-                                    <td class="text-truncate" style="max-width: 200px;">{{card.id}}</td>
-                                    <td class="text-truncate" style="max-width: 200px;">{{card.card_number}}</td>
-                                    <td>{{card.currency_type}}</td>
-                                    <td>{{card.bank_type}}</td>
-                                    <td>{{card.balance}}</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-danger" type="button">
-                                                <a role="button" href="{% url 'system:card_delete' card.id %}">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                
+                                    
+                                        <tr>
+                                            <td class="text-truncate" style="max-width: 200px;">{{card.id}}</td>
+                                            <td class="text-truncate" style="max-width: 200px;">{{card.card_number}}</td>
+                                            <td>{{card.currency_type}}</td>
+                                            <td>{{card.bank_type}}</td>
+                                            <td>{{card.balance}}</td>
+                                            <td class="text-center">
+                                                
+                                                <button class="btn btn-danger" type="button">
+                                                    <a role="button" href="{% url 'system:card_delete' card.id %}">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </button>
+                                                
+                                            </td>
+                                        </tr>
+                                   
+                                
                             {% endfor %}
                             
                         </tbody>

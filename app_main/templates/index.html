@@ -101,9 +101,12 @@
     </div>
     <section class="py-4 py-xl-5">
         <h1 class="text-uppercase fw-bold text-white mb-3" data-aos="fade-up" data-aos-duration="800" style="text-align: center;">¿Estás listo para<br> empezar?<br>Súmate a construir el futuro.</h1>
-        <div><a class="btn btn-primary ms-md-2" role="button" data-aos="fade-up" data-aos-duration="800" href="registrar.html" style="font-size: 20px;transform: translate(560px);">Registrar ahora</a></div><img class="rounded-circle img-fluid" data-aos="fade-down" data-aos-duration="800" src="assets/img/SharedScreenshot3.jpg" style="transform: translate(337px);margin-top: 50px;" width="auto" height="auto">
+        <div>
+            <a class="btn btn-primary ms-md-2" role="button" data-aos="fade-up" data-aos-duration="800" href="{% url 'users:register' %}" style="font-size: 20px;transform: translate(560px);">Registrar ahora</a>
+        </div>
+        <img class="rounded-circle img-fluid" data-aos="fade-down" data-aos-duration="800" src="{% static 'img/SharedScreenshot3.jpg' %}" style="transform: translate(337px);margin-top: 50px;" width="auto" height="auto">
     </section>
-    <footer class="text-white bg-dark"></footer>
+    
 </div>
 <section class="py-4 py-xl-5">
     <div class="container">

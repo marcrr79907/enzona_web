@@ -96,6 +96,8 @@ class Gas_Service(models.Model):
 
 class User_Card(models.Model):
     card_number = models.CharField(max_length=200, unique=True)
+    bank_type = models.CharField(max_length=20)
+    currency_type = models.CharField(max_length=20)
     balance = models.PositiveIntegerField(default=0)
     pin = models.CharField(max_length=4)
 
