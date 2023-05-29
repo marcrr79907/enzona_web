@@ -21,7 +21,6 @@ class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        print(self.get_object)
         try:
             action = request.POST['action']
             if action == 'add':
@@ -30,8 +29,21 @@ class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
                 if form.is_valid():
                     origin = request.POST['origin_card']
                     dest = request.POST['dest_card']
-                    user_card = User_Card.objects.get(user_id=request.user.id)
+                    mont = request.POST['import_transfer']
+                    user_card = User_Card.objects.get(
+                        user=request.user.id, card_number=origin)
+                    dest_card = User_Card.objects.get(card_number=dest)
 
+                    if mont <= 0:
+                        if user_card.balance >= mont:
+                            dest_card.balance += mont
+                            user_card.balance -= mont
+                            user_card.save()
+
+                        else:
+                            data['error'] = 'Saldo insuficiente'
+                    else:
+                        data['error'] = 'El saldo a transferir no puede ser cero'
                 else:
                     data['error'] = form.errors
             else:
@@ -53,9 +65,8 @@ class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
 
 class CardListView(LoginRequiredMixin, ListView):
     model = User_Card
-    template_name = 'cards/card_list.html'
+    template_name = 'transferencias/transferencias.html'
 
-    @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -64,8 +75,8 @@ class CardListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de transferencias'
         context['create_url'] = reverse_lazy('transfer_create')
-        context['list_url'] = reverse_lazy('transfer_list')
+        context['list_url'] = reverse_lazy('transferencias')
         context['entity'] = Transfer
-        context['object_list'] = Transfer.objects.all()
+        context['object_list'] = Transfer.objects.filter(id=self.request.user)
 
         return context

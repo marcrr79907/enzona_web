@@ -1,8 +1,6 @@
 {% extends 'base/body.html' %}
-{% load static %}
 
 {% block content %}
-
 <div class="row justify-content-center" style="padding-top: 40px;padding-right: 20px;padding-bottom: 20px;">
     <div class="col-xl-10 col-xxl-9">
         <div class="card shadow" style="background: rgb(255, 255, 255);border-radius: 10px;">
@@ -13,10 +11,33 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="fs-5 modal-title" id="exampleModalLabel">Nueva Tarjeta</h1><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                                    <h1 class="fs-5 modal-title" id="exampleModalLabel">Nueva Tarjeta</h1>
+                                    <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {% include '../form.html' %}
+                                    <form id="Add-Target" class="Form Target">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="col-form-label form-label" for="card_number">Numero:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <input class="form-control form-control" type="text" id="numero" name="card_number">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <label class="col-form-label form-label" for="date_ex">Expira:</label>
+                                            </div>
+                                            <div class="col-12 col-sm-6">
+                                                <input class="form-control form-control" id="fecha" type="date" name="date_ex">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-success" id="Guardar" type="button">Aceptar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -36,16 +57,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-truncate" style="max-width: 200px;">1</td>
-                                <td class="text-truncate" style="max-width: 200px;">Jmeno Prijmení</td>
-                                <td class="text-truncate" style="max-width: 200px;">1234567890123456</td>
-                                <td>Cup</td>
-                                <td>Metropolitano</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group"><button class="btn btn-success" type="button"><i class="material-icons">attach_money</i></button><button class="btn btn-warning" type="button"><i class="material-icons">view_list</i></button><button class="btn btn-danger" type="button"><i class="material-icons">delete</i></button></div>
-                                </td>
-                            </tr>
+                            {% for card in object_list %}
+                                <tr>
+                                    <td class="text-truncate" style="max-width: 200px;">1</td>
+                                    <td class="text-truncate" style="max-width: 200px;">Jmeno Prijmení</td>
+                                    <td class="text-truncate" style="max-width: 200px;">1234567890123456</td>
+                                    <td>Cup</td>
+                                    <td>Metropolitano</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-success" type="button">
+                                                <a role="button" href="{% url 'system:card_list' %}">
+                                                    <i class="material-icons">attach_money</i>
+                                                </a>
+                                                
+                                            </button>
+                                            <button class="btn btn-warning" type="button">
+                                                <a role="button" href="{% url 'system:card_list' %}">
+                                                    <i class="material-icons">view_list</i>
+                                                </a>
+                                                
+                                            </button>
+                                            <button class="btn btn-danger" type="button">
+                                                <a role="button" href="{% url 'system:card_delete' %}">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                                
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            
                         </tbody>
                     </table>
                 </div>

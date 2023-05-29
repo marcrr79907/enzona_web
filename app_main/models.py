@@ -33,7 +33,7 @@ class Person_DB(models.Model):
     gender = models.CharField(max_length=50, null=False)
     date_birthday = models.DateField(null=False)
     address = models.CharField(max_length=50, null=False)
-    dni = models.IntegerField(unique=True, null=False)
+    dni = models.CharField(max_length=50, unique=True, null=False)
     register = models.BooleanField(default=False)
 
     class Meta:
@@ -115,6 +115,8 @@ class Transfer(models.Model):
     confirm_mobile = models.IntegerField(null=True)
     date = models.DateField(default=datetime.now)
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     class Meta:
         verbose_name = 'Transferencia'
         verbose_name_plural = 'Transferencias'
@@ -129,8 +131,7 @@ class Electricity_Service_Pay(models.Model):
     import_service = models.IntegerField()
     date = models.DateField(default=datetime.now)
 
-    id_electricity = models.ForeignKey(
-        Electricity_Service, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Pago_Electricidad'
@@ -144,8 +145,7 @@ class Gas_Service_Pay(models.Model):
     import_service = models.IntegerField()
     date = models.DateField(default=datetime.now)
 
-    id_gas = models.ForeignKey(
-        Gas_Service, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Pago_Gas'
@@ -153,9 +153,10 @@ class Gas_Service_Pay(models.Model):
 
 
 class Destinatary(models.Model):
-    name = models.CharField(max_length=50)
-    associated_card = models.ForeignKey(
-        Bank_DB, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, null=False, unique=True)
+    associated_card = models.IntegerField(null=False)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Destinatario'

@@ -12,7 +12,6 @@ class CardListView(LoginRequiredMixin, ListView):
     model = User_Card
     template_name = 'card/credit_card.html'
 
-    @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -23,7 +22,8 @@ class CardListView(LoginRequiredMixin, ListView):
         context['create_url'] = reverse_lazy('card_create')
         context['list_url'] = reverse_lazy('card_list')
         context['entity'] = User_Card
-        context['object_list'] = User_Card.objects.all()
+        context['object_list'] = User_Card.objects.filter(
+            user=self.request.user)
 
         return context
 
@@ -79,7 +79,6 @@ class CardUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'card/credit_card.html'
     success_url = reverse_lazy('card_update')
 
-    @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -112,7 +111,6 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'card/credit_card.html'
     success_url = reverse_lazy('card_delete')
 
-    @ method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
@@ -136,7 +134,7 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
 
 class CardFormView(FormView):
     form_class = CardForm
-    template_name = 'cards/card_create.html'
+    template_name = 'cards/credit_card.html'
     success_url = reverse_lazy('card_list')
 
     def get_context_data(self, **kwargs):
