@@ -11,10 +11,10 @@ from ..models import *
 from ..forms import *
 
 
-class TranferCreateView(LoginRequiredMixin, IsSuperuserMixin, CreateView):
+class TranferCreateView(LoginRequiredMixin, CreateView):
     model = Transfer
     form_class = TransferForm
-    template_name = 'transfers/transfer_create.html'
+    template_name = 'transferencia/transferencias.html'
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)

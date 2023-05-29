@@ -13,17 +13,24 @@ class CardListView(LoginRequiredMixin, ListView):
     template_name = 'card/credit_card.html'
 
     def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        cards_list = User_Card.objects.filter(
+            user=self.request.user)
+        cards = []
+        for c in cards_list:
+            try:
+                cards.append(Bank_DB.objects.get(card_number=c.card_number))
+            except:
+                pass
+
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de tarjetas'
         context['create_url'] = reverse_lazy('card_create')
         context['list_url'] = reverse_lazy('card_list')
         context['entity'] = User_Card
-        context['object_list'] = User_Card.objects.filter(
-            user=self.request.user)
+        context['object_list'] = cards
 
         return context
 
@@ -73,63 +80,10 @@ class CardCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
-class CardUpdateView(LoginRequiredMixin, UpdateView):
-    model = User_Card
-    form_class = CardForm
-    template_name = 'card/credit_card.html'
-    success_url = reverse_lazy('card_update')
-
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            if action == 'edit':
-                form = self.get_form()
-                data = form.save()
-            else:
-                data['error'] = 'No ha ingresado ninguna acción!'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Tarjeta'
-        context['entity'] = 'User_Card'
-        context['list_url'] = reverse_lazy('card_update')
-        context['action'] = 'edit'
-
-        return context
-
-
 class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
     template_name = 'card/credit_card.html'
-    success_url = reverse_lazy('card_delete')
-
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args: str, **kwargs):
-        data = {}
-        try:
-            self.object.delete()
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Eliminar Tarjeta'
-        context['entity'] = 'User_Card'
-        context['list_url'] = reverse_lazy('card_delete')
-
-        return context
+    success_url = reverse_lazy('card_create')
 
 
 class CardFormView(FormView):

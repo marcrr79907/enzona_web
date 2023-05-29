@@ -15,7 +15,9 @@
                                     <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="Add-Target" class="Form Target">
+                                    <form method="POST" action=".">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="{{action}}">
                                         <div class="row">
                                             <div class="col-12 col-sm-6">
                                                 <label class="col-form-label form-label" for="card_number">Numero:</label>
@@ -26,17 +28,17 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-12 col-sm-6">
-                                                <label class="col-form-label form-label" for="date_ex">Expira:</label>
+                                                <label class="col-form-label form-label" for="pin">Pin:</label>
                                             </div>
                                             <div class="col-12 col-sm-6">
-                                                <input class="form-control form-control" id="fecha" type="date" name="date_ex">
+                                                <input class="form-control form-control" id="fecha" type="number" name="pin">
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                                            <button class="btn btn-success" id="Guardar" type="submit">Aceptar</button>
+                                        </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
-                                    <button class="btn btn-success" id="Guardar" type="button">Aceptar</button>
                                 </div>
                             </div>
                         </div>
@@ -49,40 +51,27 @@
                         <thead>
                             <tr>
                                 <th>No.List</th>
-                                <th>Nombre</th>
                                 <th>Numero</th>
                                 <th>Moneda</th>
                                 <th>Banco</th>
+                                <th>Saldo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for card in object_list %}
                                 <tr>
-                                    <td class="text-truncate" style="max-width: 200px;">1</td>
-                                    <td class="text-truncate" style="max-width: 200px;">Jmeno Prijmení</td>
-                                    <td class="text-truncate" style="max-width: 200px;">1234567890123456</td>
-                                    <td>Cup</td>
-                                    <td>Metropolitano</td>
+                                    <td class="text-truncate" style="max-width: 200px;">{{card.id}}</td>
+                                    <td class="text-truncate" style="max-width: 200px;">{{card.card_number}}</td>
+                                    <td>{{card.currency_type}}</td>
+                                    <td>{{card.bank_type}}</td>
+                                    <td>{{card.balance}}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-success" type="button">
-                                                <a role="button" href="{% url 'system:card_list' %}">
-                                                    <i class="material-icons">attach_money</i>
-                                                </a>
-                                                
-                                            </button>
-                                            <button class="btn btn-warning" type="button">
-                                                <a role="button" href="{% url 'system:card_list' %}">
-                                                    <i class="material-icons">view_list</i>
-                                                </a>
-                                                
-                                            </button>
                                             <button class="btn btn-danger" type="button">
-                                                <a role="button" href="{% url 'system:card_delete' %}">
+                                                <a role="button" href="{% url 'system:card_delete' card.id %}">
                                                     <i class="material-icons">delete</i>
                                                 </a>
-                                                
                                             </button>
                                         </div>
                                     </td>
