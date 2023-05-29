@@ -36,14 +36,8 @@ class CardCreateView(LoginRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-    def form_valid(self, form):
-        form.instance.user_id = self.request.user
-
-        return super().form_valid(form)
-
     def post(self, request, *args, **kwargs):
         data = {}
-        print(self.get_object)
         try:
             action = request.POST['action']
             if action == 'add':
@@ -54,6 +48,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
                         card_number=request.POST['card_number'])
                     if not card.associated:
                         if request.POST['pin'] == card.pin:
+                            form.instance.user = self.request.user
                             data = form.save()
                         else:
                             data['error'] = 'Pin incorrecto'
