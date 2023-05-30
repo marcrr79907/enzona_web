@@ -28,3 +28,30 @@ class CustomUserCreationForm(UserCreationForm):
             data['error'] = str(e)
 
         return data
+
+
+class UserUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model = User
+        fields = ('username','phone')
+        error_messages = {
+            'username': {
+                'unique': 'Ya existe un usuario con ese nombre de usuario.'
+            },
+            'phone': {
+                'unique': 'Ya existe un usuario con ese telefono.'
+            }
+        }
+        def save(self, commit=True):
+            data = {}
+            form = super()
+            try:
+                if form.is_valid():
+                    form.save()
+                else:
+                    data['error'] = form.errors
+            except Exception as e:
+                data['error'] = str(e)
+
+            return data

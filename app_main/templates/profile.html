@@ -1,5 +1,5 @@
 {% extends 'base/body.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container" style="background: rgba(255,255,255,0);">
     <div class="main-body">
@@ -7,9 +7,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card" style="background: rgba(255,255,255,0);">
                     <div class="card-body">
-                        <div class="text-center d-flex flex-column align-items-center"><img class="rounded-circle img-fluid" src="assets/img/puercoregisro.jpg" alt="Admin" width="297" height="184" style="border-radius: 50PX;" loading="auto">
+                        <div class="text-center d-flex flex-column align-items-center"><img class="rounded-circle img-fluid" src="{% static 'img/puercoregisro.jpg' %} " alt="Admin" width="297" height="184" style="border-radius: 50PX;" loading="auto">
                             <div class="mt-3">
-                                <h4 style="color: rgb(255,255,255);">John Doe</h4>
+                                <h4 style="color: rgb(255,255,255);">{{user.username}}</h4>
                             </div>
                         </div>
                     </div>
@@ -22,53 +22,53 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Nombre Completo</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> Kenneth Valdez </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> {{data_user.first_name}} {{data_user.last_name}} </span></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Usuario</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> fip@jukmuh.al </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> {{user.username}} </span></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Carne de Identidad</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> 000456789569 </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> {{data_user.dni}} </span></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Telefono</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> +5358015678 </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> {{user.phone}} </span></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Direccion</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> Bay Area, San Francisco, CA </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> {{data_user.address}} </span></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Sexo</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> Masculino </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> {{data_user.gender}} </span></div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Fecha de Nacimiento</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;"> 1/23/1999 </span></div>
+                            <div class="col-sm-9 text-secondary" style="color: rgb(0,0,0);"><span style="color: #ffffff;">{{data_user.date_birthday}}</span></div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-sm-12"><a class="btn btn-primary" role="button" href="update%20profile.html">Editar</a></div>
+                            <div class="col-sm-12"><a class="btn btn-primary" role="button" href="{% url 'users:editprofile' user.id %}">Editar</a></div>
                         </div>
                     </div>
                 </div>
@@ -78,4 +78,5 @@
     </div>
 </div>
 <div style="height: 350px;position: static;"></div>
+
 {% endblock  %}

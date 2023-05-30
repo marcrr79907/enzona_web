@@ -1,9 +1,11 @@
-import json
+from typing import Any, Dict
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from app_main.models import Person_DB, Phone_DB
 from app_users.models import User
-from .forms import CustomUserCreationForm
-from django.views.generic.edit import CreateView
+from .forms import CustomUserCreationForm, UserUpdateForm
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
@@ -76,3 +78,58 @@ class RegisterView(CreateView):
         context['action'] = 'add'
 
         return context
+    
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'editp.html'
+    success_url = reverse_lazy('users:profile')
+    url_redirect = success_url
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'edit':
+                form = self.get_form()
+                phone = Phone_DB.objects.get(number=request.POST['phone'])
+                print(request.POST['phone'])
+                if phone:
+                    data = form.save()
+                
+            else:
+                data['error'] = 'Noha ingresado ninguna acción'
+        except Exception as e:
+            data['error'] = str(e)
+
+        return JsonResponse(data)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Editar usuario'
+        context['action'] = 'edit'
+
+        return context    
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        data_user = Person_DB.objects.get(dni=user.ci)
+
+        context = super().get_context_data(**kwargs)
+        context['data_user'] = data_user
+        context['user'] = user
+
+        return context   
+
+class SegurityView(LoginRequiredMixin, TemplateView):
+    template_name = 'segurity.html' 
+   

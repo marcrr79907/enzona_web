@@ -70,29 +70,9 @@
                                             <td>{{card.balance}}</td>
                                             <td class="text-center">
                                                 
-                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar{{ card.id }}">
+                                                <a class="btn btn-danger" href="{% url 'system:card_delete' card.id %}"  type="button" >
                                                     <i class="material-icons">delete</i>
-                                                </button>
-                                                <div class="modal fade" id="modalEliminar{{ card.id }}" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalEliminarLabel">¿Estás seguro de que deseas eliminar este registro?</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form method="post" action="{% url 'system:card_create' %}">
-                                                                    {% csrf_token %}
-                                                                    <p>Por favor, confirma la eliminación de {{ card.card_number }}</p>
-                                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </a>
                                                 
                                             </td>
                                         </tr>

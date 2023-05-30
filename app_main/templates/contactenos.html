@@ -1,0 +1,34 @@
+{% extends 'base/body.html' %}
+
+{% block content %}
+<div class="container container-contact100" style="border-radius:31px">
+    <div class="wrap-contact100">
+        <form class="contact100-form validate-form">
+            <span class="contact100-form-title">Contactenos</span>
+            <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+                <input class="form-control input100" type="text" name="name" placeholder="Usuario">
+                <span class="focus-input100"></span></div>
+            <div class="wrap-input100 validate-input" data-validate="Please enter your email: e@a.x">
+                <input class="form-control input100" type="text" name="email" placeholder="Correo">
+                <span class="focus-input100"></span></div>
+            <div class="wrap-input100 validate-input" data-validate="Please enter your phone">
+                <input class="form-control input100" type="text" name="phone" placeholder="Telefono">
+                <span class="focus-input100"></span></div>
+            <div class="wrap-input100 validate-input" data-validate="Please enter your message">
+                <textarea class="form-control input100" name="message" placeholder="Descripcion">
+
+                </textarea><span class="focus-input100">
+
+                </span>
+            </div>
+            <div class="container-contact100-form-btn">
+                <button class="btn btn-primary contact100-form-btn bg-primary" type="submit">
+                    <span>Enviar&nbsp;<i class="fa fa-paper-plane m-r-6" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock  %}
