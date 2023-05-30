@@ -53,6 +53,9 @@ class RegisterView(CreateView):
                         if request.POST['password1'] == request.POST['password2']:
                             person.register = True
                             phone.associated = True
+                            # Guardando cambios
+                            person.save()
+                            phone.save()
 
                             data = form.save()
 
@@ -79,13 +82,6 @@ class RegisterView(CreateView):
         context['action'] = 'add'
 
         return context
-
-
-class UserLogoutView(LogoutView):
-    
-    self.request.session.set_expiry(0)
-    {% csrf_token expires=0 %}
-
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
