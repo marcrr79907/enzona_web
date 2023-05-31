@@ -31,12 +31,14 @@ class CardForm(ModelForm):
         return data
 
 
+
 class TransferForm(ModelForm):
 
     class Meta:
         model = Transfer
         fields = ['origin_card', 'dest_card',
-                  'import_transfer', 'confirm_mobile']
+                  'import_transfer']
+        
 
     def save(self, commit=True):
         data = {}

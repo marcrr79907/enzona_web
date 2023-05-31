@@ -118,16 +118,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Ruta a estaticos
 STATIC_URL = 'static/'
 
+# Redireccion al hacer login
 LOGIN_REDIRECT_URL = '/main/'
 
+# Redireccion al cerrar sesion
 LOGOUT_REDIRECT_URL = '/login/'
 
+# Acceder al login
 LOGIN_URL = '/login/'
 
+# Creacion de User personalizado
 AUTH_USER_MODEL = 'app_users.User'
 
+# Cierre de sesion al cerrar el nanvegador
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Default primary key field type

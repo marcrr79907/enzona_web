@@ -95,7 +95,7 @@ class Gas_Service(models.Model):
 
 
 class User_Card(models.Model):
-    card_number = models.CharField(max_length=200, unique=True)
+    card_number = models.IntegerField(unique=True)
     bank_type = models.CharField(max_length=20)
     currency_type = models.CharField(max_length=20)
     balance = models.PositiveIntegerField(default=0)
@@ -113,8 +113,7 @@ class Transfer(models.Model):
 
     origin_card = models.IntegerField(null=False)
     dest_card = models.IntegerField(null=False)
-    import_transfer = models.PositiveIntegerField(null=False)
-    confirm_mobile = models.IntegerField(null=True)
+    import_transfer = models.IntegerField(null=False)
     date = models.DateField(default=datetime.now)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -125,7 +124,7 @@ class Transfer(models.Model):
         ordering = ['id']
 
 
-class Electricity_Service_Pay(models.Model):
+class Service_Pay(models.Model):
 
     service_id = models.IntegerField(unique=True, null=False)
     propietary = models.CharField(max_length=50)
@@ -136,7 +135,7 @@ class Electricity_Service_Pay(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Pago_Electricidad'
+        verbose_name = 'Pago_Servicio'
         ordering = ['id']
 
 

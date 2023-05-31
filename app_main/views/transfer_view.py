@@ -1,11 +1,8 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, FormView
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import ListView, CreateView
 from ..models import *
 from ..forms import *
 
@@ -14,6 +11,7 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
     model = Transfer
     form_class = TransferForm
     template_name = 'transferencia/transferencias.html'
+    success_url = reverse_lazy('system:transfer_list')
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -22,27 +20,42 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
         data = {}
         try:
             action = request.POST['action']
+            print(request.POST)
             if action == 'add':
                 form = self.get_form()
 
                 if form.is_valid():
                     origin = request.POST['origin_card']
                     dest = request.POST['dest_card']
-                    mont = request.POST['import_transfer']
-                    user_card = User_Card.objects.get(
-                        user=request.user.id, card_number=origin)
-                    dest_card = User_Card.objects.get(card_number=dest)
+                    transfer_import = request.POST['import_transfer']
 
-                    if mont <= 0:
-                        if user_card.balance >= mont:
-                            dest_card.balance += mont
-                            user_card.balance -= mont
-                            user_card.save()
+                    user_org = User_Card.objects.get(card_number=origin)
+                    origin_card = Bank_DB.objects.get(card_number=origin)
+                    dest_card = Bank_DB.objects.get(card_number=dest)
+                    user_dest = User_Card.objects.get(card_number=dest)
+                    mont = int(transfer_import)
+                    if origin != dest:
+                        if mont > 0:
+                            if user_org.balance >= mont:
+                                form.instance.user = self.request.user
+                                user_dest.balance += mont
+                                dest_card.balance += mont
 
+                                user_org.balance -= mont
+                                origin_card.balance -= mont
+                                
+                                user_dest.save()
+                                dest_card.save()
+                                user_org.save()
+                                
+                                data = form.save()
+
+                            else:
+                                data['error'] = 'Saldo insuficiente'
                         else:
-                            data['error'] = 'Saldo insuficiente'
+                            data['error'] = 'El saldo a transferir no puede ser cero'
                     else:
-                        data['error'] = 'El saldo a transferir no puede ser cero'
+                        data['error'] = 'Las tarjetas no pueden ser iguales'
                 else:
                     data['error'] = form.errors
             else:
@@ -54,26 +67,29 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Nueva Tarjeta'
-        context['entity'] = 'Transfer'
-        context['list_url'] = reverse_lazy('transfer_create')
+        context['title'] = 'Nueva Transferencia'
+        context['card_list'] = User_Card.objects.filter(user=self.request.user)
         context['action'] = 'add'
+        context['list_url'] = 'system:transfer_create'
 
         return context
 
 
 class TranferListView(LoginRequiredMixin, ListView):
-    model = User_Card
-    template_name = 'transferencias/transferencias.html'
+    model = Transfer
+    template_name = 'transferencia/transferencias.html'
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        transfers = Transfer.objects.filter(user=self.request.user)
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de transferencias'
-        context['create_url'] = reverse_lazy('transfer_create')
+        context['list_url'] = reverse_lazy('system:transfer_create')
         context['entity'] = Transfer
-        context['object_list'] = Transfer.objects.filter(id=self.request.user)
+        context['object_list'] = transfers
+        context['card_list'] = User_Card.objects.filter(user=self.request.user)
+        context['action'] = 'add'
 
         return context

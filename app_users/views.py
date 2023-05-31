@@ -67,7 +67,7 @@ class RegisterView(CreateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return JsonResponse(data)
+        return redirect(settings.LOGIN_URL)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -106,7 +106,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return JsonResponse(data)
+        return redirect('users:profile')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -114,7 +114,6 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         context['action'] = 'edit'
 
         return context    
-
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'

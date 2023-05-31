@@ -1,6 +1,8 @@
 from typing import Any
+from django import http
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http.response import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DeleteView
 from django.urls import reverse_lazy
@@ -54,8 +56,10 @@ class CardCreateView(LoginRequiredMixin, CreateView):
                             form.instance.user = self.request.user
                             form.instance.bank_type = card.bank_type
                             form.instance.currency_type = card.currency_type
+                            form.instance.balance = card.balance
                             card.associated = True
 
+                            card.save()
                             data = form.save()
                         else:
                             data['error'] = 'Pin incorrecto'
@@ -68,7 +72,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return super().post(request, *args, **kwargs)
+        return redirect('system:card_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -82,6 +86,19 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
     success_url = reverse_lazy('system:card_list')
     template_name = 'card/eliminar_card.html'
-   
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+
+        user_card = User_Card.objects.get(id=self.object.id)
+        bank_card = Bank_DB.objects.get(card_number=user_card.card_number)
+
+        bank_card.associated = False
+        bank_card.save()
+
+        return super().post(request, *args, **kwargs)
    
     

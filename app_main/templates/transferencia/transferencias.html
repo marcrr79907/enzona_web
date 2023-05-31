@@ -16,58 +16,55 @@
                         <div class="modal fade" role="dialog" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
+                                    
                                     <div class="modal-header">
-                                        <h1 class="fs-5 modal-title" id="exampleModalLabel">Nueva Transferencia</h1>
+                                        <h1 class="fs-5 modal-title" id="exampleModalLabel">{{title}}</h1>
                                         <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <!-- Estructura de pestañas -->
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="tab1" data-bs-toggle="tab" data-bs-target="#panel1" type="button" role="tabpanel" aria-controls="panel1" aria-selected="true">Transferencia Tarjeta</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="tab2" data-bs-toggle="tab" data-bs-target="#panel2" type="button" role="tabpanel" aria-controls="panel2" aria-selected="false">Transferencia Destinatario</button>
-                                            </li>
-                                        </ul>
-                                        <!-- Contenido de las pestañas -->
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="panel1" role="tabpanel" aria-labelledby="tab1">
-                                                <div>
-                                                  <label class="form-label" style="padding-right: 25px;">Numero de tarjeta:</label>
-                                                  <input type="text" id="cardNumber" style="width: 250px;margin-top: 15px;">
+                                        <form method="POST" action="{% url 'system:transfer_create' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="{{action}}">
+                                            <!-- Estructura de pestañas -->
+                                            <ul class="nav nav-tabs" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="tab1" data-bs-toggle="tab" data-bs-target="#panel1" type="button" role="tabpanel" aria-controls="panel1" aria-selected="true">Transferencia Tarjeta</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="tab2" data-bs-toggle="tab" data-bs-target="#panel2" type="button" role="tabpanel" aria-controls="panel2" aria-selected="false">Transferencia Destinatario</button>
+                                                </li>
+                                            </ul>
+                                            <!-- Contenido de las pestañas -->
+                                            <div class="tab-content">
+                                                
+                                                <div class="tab-pane fade show active" id="panel1" role="tabpanel" aria-labelledby="tab1">
+                                                    <div>
+                                                        <label class="form-label" style="padding-right: 25px;" for="dest_card">Numero de tarjeta:</label>
+                                                        <input class="form-control" type="text" id="cardNumber" style="width: 250px;margin-top: 15px;" name="dest_card">
+                                                    </div>
+                                                    <div>
+                                                        <label class="form-label" style="padding-right: 25px;position: relative;transform: translate(53px);" for="import_transfer">Monto:</label>
+                                                        <input class="form-control" type="text" id="amount" style="width: 250px;margin-left: 82px;" name="import_transfer">
+                                                    </div>
+                                                    <div>
+                                                        <select class="form-control" name="origin_card" style="height: 28px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;margin-top: 10px;">
+                                                            <optgroup label="Mis Tarjetas">
+                                                                <option value="0" selected="">Seleccione su Tarjeta</option>
+                                                                    {% for card in card_list %}
+                                                                        <option value="{{card.card_number}}" selected="">{{card.card_number}}</option>
+                                                                    {% endfor %}
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                  <label class="form-label" style="padding-right: 25px;position: relative;transform: translate(53px);">Monto:</label>
-                                                  <input type="text" id="amount" style="width: 250px;margin-left: 82px;">
-                                                </div>
-                                                <div>
-                                                  <select style="height: 28px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;">
-                                                    <optgroup label="Mis Tarjetas">
-                                                      <option value="12" selected="">Ejemplo de Tarjeta</option>
-                                                    </optgroup>
-                                                  </select>
-                                                </div>
-                                              </div>
-                                            <div class="tab-pane fade" id="panel2" role="tabpanel" aria-labelledby="tab2">
-                                                <div><label class="form-label" style="padding-right: 25px;position: relative;transform: translate(53px);">Monto:</label><input type="text" style="width: 250px;margin-left: 82px;margin-top: 15px;"></div>
-                                                <div><select style="height: 28px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;margin-top: 10px;">
-                                                        <optgroup label="Mis Tarjetas">
-                                                            <option value="12" selected="">Ejemplo de Tarjeta</option>
-                                                        </optgroup>
-                                                    </select></div>
-                                                    <div><select style="height: 28px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;margin-top: 10px;">
-                                                        <optgroup label="Mis Destinatarios">
-                                                            <option value="12" selected="">Destinatario ejemplo</option>
-                                                        </optgroup>
-                                                    </select></div>
                                             </div>
-                                        </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                                                <button class="btn btn-success" type="submit">Aceptar</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
-                                        <button class="btn btn-success" type="button">Aceptar</button>
-                                    </div>
+                                        
                                 </div>
                             </div>
                         </div>
@@ -83,34 +80,26 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th class="text-center">NO.OPERACION</th>
-                                <th class="text-center">Fuente/destino</th>
+                                <th class="text-center">Fuente</th>
+                                <th class="text-center">Destino</th>
                                 <th class="text-center">Monto</th>
-                                <th class="text-center">Estado</th>
                                 <th class="text-center filter-false sorter-false">Fecha&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
+                            {% for transfer in object_list %}
                             <tr>
-                                <td>1</td>
-                                <td>1234567890123456/1234567890123456</td>
-                                <td style="padding: 10px;">2000</td>
-                                <td>Fallida</td>
-                                <td class="text-center align-middle" style="max-height: 60px;height: 60px;">23/2/200</td>
+                                <td>{{transfer.id}}</td>
+                                <td>{{transfer.origin_card}}</td>
+                                <td>{{transfer.dest_card}}</td>
+                                <td>{{transfer.import_transfer}}</td>
+                                <td>{{transfer.date}}</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>1223321313113123/2231313131213111</td>
-                                <td>23</td>
-                                <td>Fallida</td>
-                                <td class="text-center align-middle" style="max-height: 60px;height: 60px;">24/5/2000</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>1223321313113123/2231313131213111</td>
-                                <td>23</td>
-                                <td>Fallida</td>
-                                <td class="text-center align-middle" style="max-height: 60px;height: 60px;">24/5/2000</td>
-                            </tr>
+                            
+                            {% endfor %}
+                            
+                            
+                            
                         </tbody>
                     </table>
                 </div>
