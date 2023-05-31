@@ -26,7 +26,6 @@ class UsersLoginView(LoginView):
         context['title'] = 'Ingrese usuario y contraseña'
         return context
 
-
 class RegisterView(CreateView):
 
     model = User
