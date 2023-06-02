@@ -73,13 +73,11 @@ class ServiceForm(ModelForm):
         return data
 
 
-class ServiceUpdateForm(ModelForm):
-
-    card_number = models.IntegerField()
+class ServicePayForm(ModelForm):
 
     class Meta:
         model = Service_Pay
-        fields = ['card_number']
+        fields = []
 
     def save(self, commit=True):
         data = {}

@@ -166,9 +166,8 @@ class Service_Pay(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Pago_Servicio'
-        verbose_name_prural = 'Pago_Servicios'
-        ordering = ['id']
+        verbose_name = 'Pago_Servicios'
+        ordering = ['id', 'date']
 
 
 class Destinatary(models.Model):

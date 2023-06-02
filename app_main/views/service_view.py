@@ -8,6 +8,32 @@ from ..models import *
 from ..forms import *
 
 
+class ServiceListView(LoginRequiredMixin, ListView):
+    model = Service_Pay
+    template_name = 'servicios/servicios.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        services_tbp = Service_Pay.objects.filter(
+            user=self.request.user, checked=False)
+        # Historial
+        paid_services = Service_Pay.objects.filter(
+            user=self.request.user, checked=True)
+
+        context = super().get_context_data(**kwargs)
+        context['title_list'] = 'Mis Servicios'
+        context['title'] = 'Agregar Servicio'
+        context['entity'] = Service_Pay
+        context['services_tbp'] = services_tbp
+        # Historial
+        context['paid_services'] = paid_services
+        context['action'] = 'add'
+
+        return context
+
+
 class ServiceCreateView(LoginRequiredMixin, CreateView):
     model = Service_Pay
     form_class = ServiceForm
@@ -53,27 +79,17 @@ class ServiceCreateView(LoginRequiredMixin, CreateView):
             'data': data
         })
 
-    def get_context_data(self, **kwargs):
-        cards_list = User_Card.objects.filter(
-            user=self.request.user)
-
-        context = super().get_context_data(**kwargs)
-        context['object_list'] = cards_list
-        context['action'] = 'add'
-
-        return context
-
 
 class ServiceDeleteView(LoginRequiredMixin, DeleteView):
     model = Service_Pay
     success_url = reverse_lazy('system:service_list')
-    template_name = 'card/eliminar.html'
+    template_name = 'delete.html'
 
 
-class ServiceUpdateView(LoginRequiredMixin, UpdateView):
+class ServicePayView(LoginRequiredMixin, UpdateView):
 
-    model = User
-    form_class = ServiceUpdateForm
+    model = Service_Pay
+    form_class = ServicePayForm
     template_name = 'servicios/servicios.html'
     success_url = reverse_lazy('system:service_list')
     url_redirect = success_url
@@ -88,7 +104,7 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
         data = {}
         try:
             action = request.POST['action']
-            if action == 'edit':
+            if action == 'pay':
                 form = self.get_form()
                 if form.is_valid():
                     user_card = User_Card.objects.get(
@@ -116,8 +132,65 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
         })
 
     def get_context_data(self, **kwargs):
+        user_cards = User_Card.objects.filter(user=self.request.user)
         context = super().get_context_data(**kwargs)
         context['title'] = 'Pagar Servicio'
+        context['action'] = 'pay'
+        context['cards_list'] = user_cards
+
+        return context
+
+
+class ServiceUpdateView(LoginRequiredMixin, UpdateView):
+    model = Service_Pay
+    form_class = ServiceForm
+    template_name = 'servicios/servicios.html'
+    success_url = reverse_lazy('system:service_list')
+    url_redirect = success_url
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        global url_redirect
+
+        data = {}
+        try:
+            action = request.POST['action']
+            print(action)
+            if action == 'edit':
+                form = self.get_form()
+
+                if form.is_valid():
+                    service_type = request.POST['service_type']
+                    id = request.POST['service_id']
+                    if service_type == 'electricidad':
+                        service = Electricity_Service.objects.get(
+                            electricity_id=id)
+                        form.instance.user = self.request.user
+                        form.instance.import_service = service.electricity_cost
+
+                    else:
+                        service = Gas_Service.objects.get(gas_id=id)
+                        form.instance.user = self.request.user
+                        form.instance.import_service = service.gas_cost
+
+                    data = form.save()
+                else:
+                    data['error'] = form.errors
+            else:
+                data['error'] = 'No ha ingresado ninguna acción!'
+        except Exception as e:
+            data['error'] = str(e)
+
+        return redirect(url_redirect, {
+            'data': data
+        })
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_edit'] = 'Editar Servicio'
         context['action'] = 'edit'
 
         return context
