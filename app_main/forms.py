@@ -50,3 +50,46 @@ class TransferForm(ModelForm):
             data['error'] = str(e)
 
         return data
+
+
+class ServiceForm(ModelForm):
+
+    class Meta:
+        model = Service_Pay
+        fields = ['service_id', 'service_type',
+                  'propietary']
+
+    def save(self, commit=True):
+        data = {}
+        form = super()
+        try:
+            if form.is_valid():
+                form.save()
+            else:
+                data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+
+        return data
+
+
+class ServiceUpdateForm(ModelForm):
+
+    card_number = models.IntegerField()
+
+    class Meta:
+        model = Service_Pay
+        fields = ['card_number']
+
+    def save(self, commit=True):
+        data = {}
+        form = super()
+        try:
+            if form.is_valid():
+                form.save()
+            else:
+                data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+
+        return data

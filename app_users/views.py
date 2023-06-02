@@ -78,7 +78,8 @@ class RegisterView(CreateView):
         context['action'] = 'add'
 
         return context
-    
+
+
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
@@ -97,11 +98,14 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
             action = request.POST['action']
             if action == 'edit':
                 form = self.get_form()
-                phone = Phone_DB.objects.get(number=request.POST['phone'])
-                print(request.POST['phone'])
-                if phone:
-                    data = form.save()
-                
+                if form.is_valid():
+                    phone = Phone_DB.objects.get(number=request.POST['phone'])
+                    print(request.POST['phone'])
+                    if phone:
+                        data = form.save()
+
+                else:
+                    data['error'] = form.errors
             else:
                 data['error'] = 'Noha ingresado ninguna acción'
         except Exception as e:
@@ -114,7 +118,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         context['title'] = 'Editar usuario'
         context['action'] = 'edit'
 
-        return context    
+        return context
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -128,8 +132,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['data_user'] = data_user
         context['user'] = user
 
-        return context   
+        return context
+
 
 class SegurityView(LoginRequiredMixin, TemplateView):
-    template_name = 'segurity.html' 
-   
+    template_name = 'segurity.html'

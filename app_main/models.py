@@ -154,6 +154,23 @@ class Gas_Service_Pay(models.Model):
         ordering = ['id']
 
 
+class Service_Pay(models.Model):
+
+    service_id = models.IntegerField(unique=True, null=False)
+    propietary = models.CharField(max_length=50)
+    service_type = models.CharField(max_length=50)
+    import_service = models.IntegerField()
+    date = models.DateField(default=datetime.now)
+    checked = models.BooleanField(default=False)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Pago_Servicio'
+        verbose_name_prural = 'Pago_Servicios'
+        ordering = ['id']
+
+
 class Destinatary(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
     associated_card = models.IntegerField(null=False)

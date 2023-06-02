@@ -1,6 +1,5 @@
-from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DeleteView
 from django.urls import reverse_lazy
@@ -82,6 +81,3 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
     success_url = reverse_lazy('system:card_list')
     template_name = 'card/eliminar_card.html'
-   
-   
-    
