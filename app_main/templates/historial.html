@@ -9,24 +9,31 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Tipo</th>
-                                <th>Origen/Destino / Tipo de Servicio</th>
+                                <th>Operación</th>
                                 <th>Importe</th>
                                 <th>Fecha</th>
-                                <th>Verificado</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in historial %}
                             <tr
                                 class="{% if item.model_name == 'Transfer' %}transfer-row{% else %}service-pay-row{% endif %}">
-                                <td>{% if item.model_name == 'Transfer' %}Transferencia{% else %}Pago de servicio{%
-                                    endif %}</td>
-                                <td>{% if item.model_name == 'Transfer' %}{{ item.origin_card }}/{{ item.dest_card }}{%
-                                    else %}{{ item.service_type }}{% endif %}</td>
-                                <td>{{ item.import_transfer or item.import_service }}</td>
-                                <td>{{ item.date }}</td>
-                                <td>{% if item.checked %}Sí{% else %}No{% endif %}</td>
+                                {% if item.model_name == 'Transfer' %}
+                                <td>(icono) {{item.origin_card}} / {{item.dest_card}}</td>
+                                <td>{{item.import_transfer}}</td>
+                                <td>{{item.date}}</td>
+
+                                {% else %}
+                                {% if item.service_type == 'gas' %}
+                                <td>(icono gas) {{item.propietary}}</td>
+                                <td>{{item.import_service}}</td>
+                                <td>{{item.date}}</td>
+                                {% else %}
+                                <td>(icono electricidad) {{item.propietary}}</td>
+                                <td>{{item.import_service}}</td>
+                                <td>{{item.date}}</td>
+                                {% endif %}
+                                {% endif %}
                             </tr>
                             {% endfor %}
                         </tbody>
