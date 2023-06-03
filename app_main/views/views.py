@@ -13,9 +13,6 @@ class MainView(LoginRequiredMixin, IsSuperuserMixin, TemplateView):
     template_name = 'main.html'
 
 
-class HistoryView(TemplateView):
-    template_name = 'historial.html'
-
 class TermsView(TemplateView):
     template_name = 'terms_conditions.html'
 
