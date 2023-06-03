@@ -7,3 +7,7 @@ admin.site.register(Person_DB)
 admin.site.register(Phone_DB)
 admin.site.register(Transfer)
 admin.site.register(Service_Pay)
+admin.site.register(Destinatary)
+admin.site.register(Gas_Service)
+admin.site.register(Electricity_Service)
+

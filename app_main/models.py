@@ -131,6 +131,7 @@ class Service_Pay(models.Model):
     service_type = models.CharField(max_length=50)
     import_service = models.IntegerField()
     date = models.DateField(default=datetime.now)
+    checked = models.BooleanField(default=False)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -154,7 +155,7 @@ class Gas_Service_Pay(models.Model):
 
 
 class Destinatary(models.Model):
-    name = models.CharField(max_length=50, null=False, unique=True)
+    name = models.CharField(max_length=50, null=False)
     associated_card = models.IntegerField(null=False)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

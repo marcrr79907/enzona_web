@@ -1,6 +1,7 @@
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
 from ..models import *
@@ -32,19 +33,21 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
                     user_org = User_Card.objects.get(card_number=origin)
                     origin_card = Bank_DB.objects.get(card_number=origin)
                     dest_card = Bank_DB.objects.get(card_number=dest)
-                    user_dest = User_Card.objects.get(card_number=dest)
+                    
                     mont = int(transfer_import)
-                    if origin != dest:
+                    if origin != dest and origin_card.currency_type == dest_card.currency_type:
                         if mont > 0:
                             if user_org.balance >= mont:
                                 form.instance.user = self.request.user
-                                user_dest.balance += mont
-                                dest_card.balance += mont
+                                if dest_card.associated:
+                                    user_dest = User_Card.objects.get(card_number=dest)
+                                    user_dest.balance += mont
+                                    user_dest.save()
 
+                                dest_card.balance += mont
                                 user_org.balance -= mont
                                 origin_card.balance -= mont
                                 
-                                user_dest.save()
                                 dest_card.save()
                                 user_org.save()
                                 
@@ -63,7 +66,7 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return JsonResponse(data)
+        return redirect('system:transfer_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

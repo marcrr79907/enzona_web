@@ -3,14 +3,14 @@
 {% block content %}
 <div id="main" style="border-radius: 0px;">
     <div class="text-center" data-aos="fade-down" style="border-radius: 15px;height: 500px;">
-        <p class="text-center" style="font-size: 20px;">{{title}}</p>
+        <p style="color:white;" class="text-center" style="font-size: 20px;">{{title}}</p>
         <form method="post" >
             {% csrf_token %} 
             <div class="text-center px-6 py-6" >
                 <div class="text-center px-6 py-6" >
-                    <p>Estas seguro que desea eliminar la siguiente tarjeta? {{object}}</p>
+                    <p style="color:white;">{{text}} {{object}}</p>
                 </div>
-                <a type="button" href="{% url 'system:card_list' %}" class="btn btn-secondary">Cancelar </a>
+                <a type="button" href="{{url_redirect}}" class="btn btn-secondary">Cancelar </a>
                 <button type="submit" class="btn btn-danger">Confirmar </button>   
             </div>     
            </form>

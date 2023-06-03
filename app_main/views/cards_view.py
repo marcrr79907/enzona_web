@@ -85,20 +85,32 @@ class CardCreateView(LoginRequiredMixin, CreateView):
 class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
     success_url = reverse_lazy('system:card_list')
-    template_name = 'card/eliminar_card.html'
+    url_redirect = success_url
+    template_name = 'eliminar.html'
 
-    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+    def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
+        data = {}
+        try:
 
-        user_card = User_Card.objects.get(id=self.object.id)
-        bank_card = Bank_DB.objects.get(card_number=user_card.card_number)
+            user_card = User_Card.objects.get(id=self.object.id)
+            bank_card = Bank_DB.objects.get(card_number=user_card.card_number)
 
-        bank_card.associated = False
-        bank_card.save()
-
+            bank_card.associated = False
+            bank_card.save()
+        except:
+            pass
         return super().post(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context =super().get_context_data(**kwargs)
+        
+        context['title'] = 'Eliminar tarjeta'
+        context['text'] = 'Estas seguro que desea eliminar la tarjta?'
+        context['url_redirect'] = reverse_lazy('system:card_list')
+        return context
    
     

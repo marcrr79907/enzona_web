@@ -98,11 +98,13 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
                 form = self.get_form()
                 phone = Phone_DB.objects.get(number=request.POST['phone'])
                 print(request.POST['phone'])
-                if phone:
-                    data = form.save()
-                
+                if form.is_valid():
+                    if phone:
+                        data = form.save()
+                else:
+                    data['error'] = form.errors
             else:
-                data['error'] = 'Noha ingresado ninguna acción'
+                data['error'] = 'No ha ingresado ninguna acción'
         except Exception as e:
             data['error'] = str(e)
 
