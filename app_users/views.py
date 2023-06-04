@@ -4,7 +4,9 @@ from django.http import JsonResponse
 from app_main.models import Person_DB, Phone_DB
 from app_users.models import User
 from .forms import CustomUserCreationForm, UserUpdateForm
-from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
@@ -25,6 +27,7 @@ class UsersLoginView(LoginView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Ingrese usuario y contraseña'
         return context
+
 
 class RegisterView(CreateView):
 
@@ -77,7 +80,8 @@ class RegisterView(CreateView):
         context['action'] = 'add'
 
         return context
-    
+
+
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
@@ -113,9 +117,11 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar usuario'
+        context['url_redirect'] = self.success_url
         context['action'] = 'edit'
 
-        return context    
+        return context
+
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
@@ -128,8 +134,46 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['data_user'] = data_user
         context['user'] = user
 
-        return context   
+        return context
 
-class SegurityView(LoginRequiredMixin, TemplateView):
-    template_name = 'segurity.html' 
-   
+
+class SegurityUserView(LoginRequiredMixin, FormView):
+
+    model = User
+    form_class = PasswordChangeForm
+    template_name = 'segurity.html'
+    success_url = reverse_lazy('users:profile')
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        form = PasswordChangeForm(user=self.request.user)
+        return form
+
+    def post(self, request, *args, **kwargs):
+
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'edit':
+                form = PasswordChangeForm(user=request.user, data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    update_session_auth_hash(request, form.user)
+                else:
+                    data['error'] = form.errors
+            else:
+                data['error'] = 'No ha ingresado ninguna acción'
+        except Exception as e:
+            data['error'] = str(e)
+
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Cambiar contraseña'
+        context['url_redirect'] = self.success_url
+        context['action'] = 'edit'
+
+        return context

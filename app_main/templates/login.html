@@ -2,42 +2,34 @@
 {% load static %}
 {% block content %}
 <div id="main" style="border-radius: 0px;">
-    <div class="text-center" data-aos="fade-down" id="info" style="border-radius: 15px;height: 500px;"><img id="ventaspro-logo" src="{% static 'img/enzona%20-%20copia.jpg' %}" width="64" height="63" style="border-radius: 90px;">
+    <div class="text-center" data-aos="fade-down" id="info" style="border-radius: 15px;height: 500px;"><img
+            id="ventaspro-logo" src="{% static 'img/enzona%20-%20copia.jpg' %}" width="64" height="63"
+            style="border-radius: 90px;">
         <p class="text-center" style="font-size: 20px;">{{title}}</p>
-        <form class="text-center"  method="POST" action=".">
+        <form class="text-center" method="POST" action=".">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{next}}">
             <div class="mb-3 mx-4 px-4">
                 <label class="form-label rubberBand animated" for="username" style="font-size: 20px;">Usuario</label>
-                <input class="form-control rubberBand animated" autofocus="on" type="text" name="username" style="background: rgba(255,255,255,0.79);">
+                <input class="form-control rubberBand animated" autofocus="on" type="text" name="username"
+                    style="background: rgba(255,255,255,0.79);">
             </div>
             <div class="mb-3 mx-4 px-4">
                 <label class="form-label rubberBand animated" for="password" style="font-size: 20px;">Contraseña</label>
-                <input class="form-control rubberBand animated" name="password" type="password" style="background: rgba(255,255,255,0.79);">
+                <input class="form-control rubberBand animated" name="password" type="password"
+                    style="background: rgba(255,255,255,0.79);">
             </div>
             <div class="mb-3 mx-4 px-4">
-                <button class="btn btn-primary" data-bss-hover-animate="bounce" id="btn-sesion" type="submit" style="--bs-primary: #256db4;--bs-primary-rgb: 37,109,180;background: #256db4;font-size: 20px;">Iniciar Sesión</button>
+                <button class="btn btn-primary" data-bss-hover-animate="bounce" type="submit"
+                    style="--bs-primary: #256db4;--bs-primary-rgb: 37,109,180;background: #256db4;font-size: 20px;">Iniciar
+                    Sesión</button>
             </div>
         </form>
-        <script>
-            {% if form.errors %}
-                var errors = '';
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        errors += '{{error}}\n';  
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    errors += '{{error}}\n';
-                {% endfor %}
-                messaje_error(errors);
-            {% endif %}
-        </script>
-        
+
         <div style="margin-top: 10px;">
             <a href="{% url 'users:register' %}" style="color: rgb(255,255,255);font-size: 15px;">Registrar ahora</a>
         </div>
     </div>
 </div>
 
-{% endblock  %}
+{% endblock %}

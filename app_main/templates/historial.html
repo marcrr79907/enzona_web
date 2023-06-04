@@ -16,23 +16,18 @@
                         </thead>
                         <tbody>
                             {% for item in historial %}
-                            <tr
-                                class="{% if item.model_name == 'Transfer' %}transfer-row{% else %}service-pay-row{% endif %}">
-                                {% if item.model_name == 'Transfer' %}
+                            <tr>
+                                {% if item.model_name == 'transfer' %}
                                 <td>(icono) {{item.origin_card}} / {{item.dest_card}}</td>
                                 <td>{{item.import_transfer}}</td>
                                 <td>{{item.date}}</td>
 
                                 {% else %}
-                                {% if item.service_type == 'gas' %}
-                                <td>(icono gas) {{item.propietary}}</td>
+
+                                <td>(icono) {{item.propietary}}</td>
                                 <td>{{item.import_service}}</td>
                                 <td>{{item.date}}</td>
-                                {% else %}
-                                <td>(icono electricidad) {{item.propietary}}</td>
-                                <td>{{item.import_service}}</td>
-                                <td>{{item.date}}</td>
-                                {% endif %}
+
                                 {% endif %}
                             </tr>
                             {% endfor %}
