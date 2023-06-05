@@ -25,6 +25,8 @@ class DestinataryListView(LoginRequiredMixin, ListView):
         context['title'] = 'Agregar Destinatario'
         context['entity'] = Destinatary
         context['object_list'] = destinatary_list
+        context['data'] = self.request.session.pop('data', None)
+        context['action_update'] = 'edit'
         context['action'] = 'add'
 
         return context
@@ -40,39 +42,53 @@ class DestinataryCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        global success_url
         data = {}
+        data['form_is_valid'] = False
         try:
             action = request.POST['action']
-            print(request.POST)
             if action == 'add':
                 form = self.get_form()
 
                 if form.is_valid():
                     number=int(request.POST['associated_card'])
+                    name=request.POST['name']
                     card = Bank_DB.objects.get(
                         card_number=number)
                     form.instance.user = self.request.user
 
                     destinatary_list = Destinatary.objects.filter(user=self.request.user)
-                    for destinatary_card in destinatary_list:
-                        if destinatary_card.associated_card == card.card_number:
+                    for destinatary in destinatary_list:
+                        if destinatary.associated_card == number:
 
-                            data['error'] = 'Ya existe un destinatario con esta tarjeta asociada'
-                            return redirect('system:destinatary_list', {
-                                'data': data
-                            })
-                       
-                    data = form.save()
-                    print(action)
+                            request.session['data'] = {
+                            'error_message': 'Ya existe un destinatario con esta tarjeta asociada!'}
+                            return redirect(self.success_url)
+                        elif destinatary.name == name:
+
+                            request.session['data'] = {
+                            'error_message': 'Ya existe un destinatario con este nombre!'}
+                            return redirect(self.success_url)
+
+                    form.save()
+                    data['form_is_valid'] = True
                 else:
                     data['error'] = form.errors
             else:
                 data['error'] = 'No ha ingresado ninguna acción!'
+
+        except Bank_DB.DoesNotExist:
+            data['error'] = 'La tarjeta no existe!'
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:destinatary_list')
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'El destinatario ha sido creado con éxito.'}
+            return redirect(self.success_url)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            return redirect(self.success_url)
     
 
 class DestinataryDeleteView(LoginRequiredMixin, DeleteView):
@@ -94,7 +110,7 @@ class DestinataryDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class DestinataryUpdateView(LoginRequiredMixin, DeleteView):
+class DestinataryUpdateView(LoginRequiredMixin, UpdateView):
     model = Destinatary
     form_class = DestinataryForm
     template_name = 'destinatary/destinary.html'
@@ -106,40 +122,59 @@ class DestinataryUpdateView(LoginRequiredMixin, DeleteView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-
         data = {}
+        data['form_is_valid'] = False
+
         try:
-            action = request.POST['action']
+            action = request.POST['action_update']
             if action == 'edit':
                 form = self.get_form()
                 if form.is_valid():
-                    card = Bank_DB.objects.get(
-                        card_number=request.POST['card_number'])
-                    
+                    number=int(request.POST['associated_card'])
+                    name=request.POST['name']
+                    card = Bank_DB.objects.get(card_number=number)
 
                     destinatary_list = Destinatary.objects.filter(user=self.request.user)
-                    for destinatary_card in destinatary_list.associated_card:
-                        if destinatary_card == card.card_number:
-                            data['error'] = 'Ya existe un destinatario con esta tarjeta asociada'
-                            return redirect('system:destinatary_list', {
-                                'data': data
-                            })
+                    for destinatary in destinatary_list:
+
+                        if self.object.associated_card == number or self.object.name == name:
+                            pass
+                        elif destinatary.associated_card == number:
+
+                            request.session['data'] = {
+                            'error_message': 'Ya existe un destinatario con esta tarjeta asociada!'}
+                            return redirect(self.success_url)
+                        elif destinatary.name == name:
+
+                            request.session['data'] = {
+                            'error_message': 'Ya existe un destinatario con este nombre!'}
+                            return redirect(self.success_url)
                        
-                    data = form.save()
+                    form.save()
+                    data['form_is_valid'] = True
+
                 else:
                     data['error'] = form.errors    
                 
             else:
                 data['error'] = 'No ha ingresado ninguna acción'
+        except Bank_DB.DoesNotExist:
+            data['error'] = 'La tarjeta no existe!'
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:destinatary_list')
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'El destinatario ha sido actualizado con éxito.'}
+            return redirect(self.success_url)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar destinatario'
-        context['action'] = 'edit'
 
         return context 
 

@@ -23,6 +23,7 @@ class CardListView(LoginRequiredMixin, ListView):
         context['entity'] = User_Card
         context['object_list'] = cards_list
         context['action'] = 'add'
+        context['data'] = self.request.session.pop('data', None)
 
         return context
 
@@ -38,6 +39,7 @@ class CardCreateView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
+        data['form_is_valid'] = False
         try:
             action = request.POST['action']
             print(action)
@@ -56,19 +58,36 @@ class CardCreateView(LoginRequiredMixin, CreateView):
                             card.associated = True
 
                             card.save()
-                            data = form.save()
+                            form.save()
+                            data['form_is_valid'] = True
                         else:
+                            data['form_is_valid'] = False
                             data['error'] = 'Pin incorrecto'
                     else:
+                        data['form_is_valid'] = False
                         data['error'] = 'La tarjeta ya está asociada a un usuario!'
                 else:
+                    data['form_is_valid'] = False
                     data['error'] = form.errors
             else:
+                data['form_is_valid'] = False
                 data['error'] = 'No ha ingresado ninguna acción!'
+        
+        except Bank_DB.DoesNotExist:
+            data['error'] = 'La tarjeta de no existe'
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:card_list')
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'La tarjeta ha sido creada con éxito.'}
+            print(request.session['data'])
+            return redirect(self.success_url)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            print(request.session['data'])
+            return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

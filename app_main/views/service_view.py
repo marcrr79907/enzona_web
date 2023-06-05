@@ -1,6 +1,4 @@
-from typing import Any, Dict
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
@@ -16,9 +14,6 @@ class ServiceListView(LoginRequiredMixin, ListView):
         services_tbp = Service_Pay.objects.filter(
             user=self.request.user, checked=False)
         cards_list = User_Card.objects.filter(user=self.request.user)
-        # Historial
-        paid_services = Service_Pay.objects.filter(
-            user=self.request.user, checked=True)
 
         context = super().get_context_data(**kwargs)
         context['title_list'] = 'Mis Servicios'
@@ -28,11 +23,9 @@ class ServiceListView(LoginRequiredMixin, ListView):
         context['cards_list'] = cards_list
         context['action'] = 'add'
         context['action_update'] = 'edit'
+        context['data'] = self.request.session.pop('data', None)
         context['action_service'] = 'pay'
-        # Historial
-        context['paid_services'] = paid_services
         
-
         return context
 
 
@@ -46,11 +39,10 @@ class ServiceCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        
         data = {}
+        data['form_is_valid'] = False
         try:
             action = request.POST['action']
-            print(action)
             if action == 'add':
                 form = self.get_form()
 
@@ -67,16 +59,31 @@ class ServiceCreateView(LoginRequiredMixin, CreateView):
                         service = Gas_Service.objects.get(gas_id=id)
                         form.instance.user = self.request.user
                         form.instance.import_service = service.gas_cost
-
-                    data = form.save()
+                    
+                    form.save()
+                    data['form_is_valid'] = True
                 else:
                     data['error'] = form.errors
             else:
                 data['error'] = 'No ha ingresado ninguna acción!'
+        
+        except Gas_Service.DoesNotExist:
+            data['error'] = 'El servicio no existe!'
+        except Electricity_Service.DoesNotExist:
+            data['error'] = 'El servicio no existe!'
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:service_list')
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'El servicio ha sido creado con éxito.'}
+            print(request.session['data'])
+            return redirect(self.success_url)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            print(request.session['data'])
+            return redirect(self.success_url)
 
 
 class ServiceDeleteView(LoginRequiredMixin, DeleteView):
@@ -108,6 +115,8 @@ class ServicePayView(LoginRequiredMixin, UpdateView):
     def post(self, request, *args, **kwargs):
 
         data = {}
+        data['form_is_valid'] = False
+        
         try:
             action = request.POST['action_service']
             print(request.POST)
@@ -123,7 +132,8 @@ class ServicePayView(LoginRequiredMixin, UpdateView):
                         service.checked = True
                         user_card.save()
                         service.save()
-                        data = form.save()
+                        form.save()
+                        data['form_is_valid'] = True
 
                     else:
                         data['error'] = 'Saldo insuficiente para realizar la operación'
@@ -134,14 +144,19 @@ class ServicePayView(LoginRequiredMixin, UpdateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:service_list')
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'El servicio ha sido pagado con éxito.'}
+            return redirect(self.success_url)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
         user_cards = User_Card.objects.filter(user=self.request.user)
         context = super().get_context_data(**kwargs)
         context['title'] = 'Pagar Servicio'
-        context['action'] = 'pay'
-        context['cards_list'] = user_cards
 
         return context
 
@@ -160,6 +175,8 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
     def post(self, request, *args, **kwargs):
 
         data = {}
+        data['form_is_valid'] = False
+
         try:
             action = request.POST['action_update']
             print(request.POST)
@@ -178,13 +195,27 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
                         service = Gas_Service.objects.get(gas_id=id)
                         form.instance.import_service = service.gas_cost
 
-                    data = form.save()
+                    form.save()
+                    data['form_is_valid'] = True
+
                 else:
                     data['error'] = form.errors
             else:
                 data['error'] = 'No ha ingresado ninguna acción!'
+                
+        except Gas_Service.DoesNotExist:
+            data['error'] = 'El servicio no existe!'
+        except Electricity_Service.DoesNotExist:
+            data['error'] = 'El servicio no existe!'
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:service_list')
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'El servicio ha sido actualizado con éxito.'}
+            return redirect(self.success_url)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            return redirect(self.success_url)
 

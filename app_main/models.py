@@ -22,8 +22,6 @@ class Bank_DB(models.Model):
         verbose_name = 'Banco_DB'
         ordering = ['id']
 
-    def __str__(self):
-        return f'Número: {self.card_number} Banco: {self.bank_type} Saldo: {self.balance} Asociada: {self.associated}'
 
 
 class Person_DB(models.Model):
@@ -40,9 +38,6 @@ class Person_DB(models.Model):
         verbose_name = 'Personas_DB'
         ordering = ['id']
 
-    def __str__(self):
-        return f'Nombre: {self.first_name} Apellido: {self.last_name} Registrada: {self.register}'
-
 
 class Phone_DB(models.Model):
 
@@ -54,8 +49,6 @@ class Phone_DB(models.Model):
         verbose_name = 'Teléfonos_DB'
         ordering = ['id']
 
-    def __str__(self):
-        return f'Número: {self.number} Nombre Propietario: {self.propietary_name} Asociado: {self.associated}'
 
 
 class Electricity_Service(models.Model):
@@ -69,10 +62,7 @@ class Electricity_Service(models.Model):
         verbose_name = 'Servicio_Electricidad'
         ordering = ['id']
 
-    def __str__(self):
-        return f'ID_Electricidad: {self.electricity_id} Importe: {self.cost} Chequeado: {self.checked}'
-
-
+ 
 class Gas_Service(models.Model):
 
     gas_id = models.IntegerField(unique=True, null=False)
@@ -83,9 +73,6 @@ class Gas_Service(models.Model):
     class Meta:
         verbose_name = 'Servicio_Gas '
         ordering = ['id']
-
-    def __str__(self):
-        return f'ID_Gas: {self.gas_id} Importe: {self.gas_cost} Chequeado: {self.checked}'
 
 
 # -----------------Fin Data Bases------------------#
@@ -137,20 +124,6 @@ class Service_Pay(models.Model):
 
     class Meta:
         verbose_name = 'Pago_Servicio'
-        ordering = ['id']
-
-
-class Gas_Service_Pay(models.Model):
-    service_id = models.IntegerField(unique=True, null=False)
-    propietary = models.CharField(max_length=50)
-    service_type = models.CharField(max_length=50)
-    import_service = models.IntegerField()
-    date = models.DateField(default=datetime.now)
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Pago_Gas'
         ordering = ['id']
 
 
