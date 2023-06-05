@@ -10,19 +10,19 @@
             <input type="hidden" name="next" value="{{next}}">
             <h2 class="text-center"><strong>{{title}}</strong>.</h2>
             <div>
-                <input class="form-control" type="text" name="username" placeholder="Usuario" style="margin-bottom: 10px;">
+                <input class="form-control" type="text" name="username" id="register_name" placeholder="Usuario" style="margin-bottom: 10px;">
             </div>
             <div>
-                <input class="form-control" type="text" name="ci" placeholder="Carnet de Identidad">
+                <input class="form-control" type="text" name="ci" id="CI" placeholder="Carnet de Identidad">
             </div>
             <div>
                 <input class="form-control" type="tel" name="phone" placeholder="Teléfono" style="margin-top: 10px;">
             </div>
             <div>
-                <input class="form-control" type="password" id="password1" name="password1" placeholder="Contraseña" style="margin-top: 10px;">
+                <input class="form-control" type="password" id="password_register" name="password1" placeholder="Contraseña" style="margin-top: 10px;">
             </div>
             <div>
-                <input class="form-control" type="password" id="confirmPassword" name="password2" placeholder="Repetir contraseña" onchange="changePassword()" style="margin-top: 10px;"></div>
+                <input class="form-control" type="password" id="confirmPassword_register" name="password2" placeholder="Repetir contraseña" onchange="changePassword()" style="margin-top: 10px;"></div>
             
             <div class="form-group mb-3">
                 <div class="form-check" style="margin-top: 10px;">
@@ -51,6 +51,7 @@
             {% endif %}
             
         </script>
+        
     </div>
 </section>
 {% endblock  %}

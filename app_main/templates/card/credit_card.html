@@ -45,8 +45,8 @@
                                             id="pin_card"
                                             type="number"
                                             name="pin"
-                                            oninput="validarPIN()"
-                                            maxlength="4"
+                                            
+                                            
                                             
                                           />
                                           
@@ -107,6 +107,31 @@
     </div>
 </div>
 <div style="height: 350px;position: static;"></div>
+<script>
+  const inputNumeroCard = document.getElementById('numero_card');
+  const inputPinCard = document.getElementById('pin_card');
+    inputNumeroCard.addEventListener('input', validarNumeroCard);
+    inputPinCard.addEventListener('input', validarPinCard);
+    
+    function validarNumeroCard() {
+      const regexSoloNumeros = /^[0-9]+$/;
+      if (!regexSoloNumeros.test(inputNumeroCard.value)) {
+        inputNumeroCard.value = inputNumeroCard.value.replace(/[^\d]/g, '');
+      }
+      if (inputNumeroCard.value.length > 16) {
+        inputNumeroCard.value = inputNumeroCard.value.slice(0, 16);
+      }
+    }
+    function validarPinCard() {
+      const regexSoloNumeros = /^[0-9]+$/;
+      if (!regexSoloNumeros.test(inputPinCard.value)) {
+        inputPinCard.value = inputPinCard.value.replace(/[^\d]/g, '');
+      }
+      if (inputPinCard.value.length > 4) {
+        inputPinCard.value = inputPinCard.value.slice(0, 4);
+      }
+    }
+</script>
 
 
 
