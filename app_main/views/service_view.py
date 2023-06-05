@@ -16,9 +16,6 @@ class ServiceListView(LoginRequiredMixin, ListView):
         services_tbp = Service_Pay.objects.filter(
             user=self.request.user, checked=False)
         cards_list = User_Card.objects.filter(user=self.request.user)
-        # Historial
-        paid_services = Service_Pay.objects.filter(
-            user=self.request.user, checked=True)
 
         context = super().get_context_data(**kwargs)
         context['title_list'] = 'Mis Servicios'
@@ -29,9 +26,6 @@ class ServiceListView(LoginRequiredMixin, ListView):
         context['action'] = 'add'
         context['action_update'] = 'edit'
         context['action_service'] = 'pay'
-        # Historial
-        context['paid_services'] = paid_services
-        
 
         return context
 
@@ -46,7 +40,7 @@ class ServiceCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        
+
         data = {}
         try:
             action = request.POST['action']
@@ -85,8 +79,8 @@ class ServiceDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'eliminar.html'
 
     def get_context_data(self, **kwargs):
-        context =super().get_context_data(**kwargs)
-        
+        context = super().get_context_data(**kwargs)
+
         context['title'] = 'Eliminar servicio'
         context['text'] = 'Estas seguro que desea eliminar el servicio?'
         context['url_redirect'] = reverse_lazy('system:service_list')
@@ -187,4 +181,3 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
             data['error'] = str(e)
 
         return redirect('system:service_list')
-

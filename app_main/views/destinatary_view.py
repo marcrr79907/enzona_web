@@ -40,7 +40,6 @@ class DestinataryCreateView(LoginRequiredMixin, CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        global success_url
         data = {}
         try:
             action = request.POST['action']
@@ -134,7 +133,8 @@ class DestinataryUpdateView(LoginRequiredMixin, DeleteView):
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('system:destinatary_list')
+        print(data)
+        return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

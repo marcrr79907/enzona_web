@@ -13,13 +13,15 @@
             <div class="row table-topper align-items-center">
                 <div class="col-12 col-sm-5 col-md-6 text-start" style="margin: 0px;padding: 5px 15px;width: 600px;">
                     <div style="width: 180px;display: block;position: relative;">
-                        <div class="modal fade" role="dialog" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" role="dialog" tabindex="-1" id="exampleModal"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    
+
                                     <div class="modal-header">
                                         <h1 class="fs-5 modal-title" id="exampleModalLabel">{{title}}</h1>
-                                        <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                                        <button class="btn-close" type="button" aria-label="Close"
+                                            data-bs-dismiss="modal"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form method="POST" action="{% url 'system:transfer_create' %}">
@@ -28,48 +30,66 @@
                                             <!-- Estructura de pestañas -->
                                             <ul class="nav nav-tabs" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="tab1" data-bs-toggle="tab" data-bs-target="#panel1" type="button" role="tabpanel" aria-controls="panel1" aria-selected="true">Transferencia Tarjeta</button>
+                                                    <button class="nav-link active" id="tab1" data-bs-toggle="tab"
+                                                        data-bs-target="#panel1" type="button" role="tabpanel"
+                                                        aria-controls="panel1" aria-selected="true">Transferencia
+                                                        Tarjeta</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="tab2" data-bs-toggle="tab" data-bs-target="#panel2" type="button" role="tabpanel" aria-controls="panel2" aria-selected="false">Transferencia Destinatario</button>
+                                                    <button class="nav-link" id="tab2" data-bs-toggle="tab"
+                                                        data-bs-target="#panel2" type="button" role="tabpanel"
+                                                        aria-controls="panel2" aria-selected="false">Transferencia
+                                                        Destinatario</button>
                                                 </li>
                                             </ul>
                                             <!-- Contenido de las pestañas -->
                                             <div class="tab-content">
-                                                
-                                                <div class="tab-pane fade show active" id="panel1" role="tabpanel" aria-labelledby="tab1">
+
+                                                <div class="tab-pane fade show active" id="panel1" role="tabpanel"
+                                                    aria-labelledby="tab1">
                                                     <div>
-                                                        <label class="form-label" style="padding-right: 25px;" for="dest_card">Numero de tarjeta:</label>
-                                                        <input class="form-control" type="text" id="cardNumber" style="width: 250px;margin-top: 15px;" name="dest_card">
+                                                        <label class="form-label" style="padding-right: 25px;"
+                                                            for="dest_card">Numero de tarjeta:</label>
+                                                        <input class="form-control" type="text" id="cardNumber"
+                                                            style="width: 250px;margin-top: 15px;" name="dest_card">
                                                     </div>
                                                     <div>
-                                                        <label class="form-label" style="padding-right: 25px;position: relative;transform: translate(53px);" for="import_transfer">Monto:</label>
-                                                        <input class="form-control" type="text" id="amount" style="width: 250px;margin-left: 82px;" name="import_transfer">
+                                                        <label class="form-label"
+                                                            style="padding-right: 25px;position: relative;transform: translate(53px);"
+                                                            for="import_transfer">Monto:</label>
+                                                        <input class="form-control" type="text" id="amount"
+                                                            style="width: 250px;margin-left: 82px;"
+                                                            name="import_transfer">
                                                     </div>
                                                     <div>
-                                                        <select class="form-control" name="origin_card" style="height: 28px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;margin-top: 10px;">
+                                                        <select class="form-control" name="origin_card"
+                                                            style="height: 28px;padding-top: 3px;padding-bottom: 3px;font-size: 12px;width: 100%;margin-top: 10px;">
                                                             <optgroup label="Mis Tarjetas">
-                                                                <option value="0" selected="">Seleccione su Tarjeta</option>
-                                                                    {% for card in card_list %}
-                                                                        <option value="{{card.card_number}}" selected="">{{card.card_number}}</option>
-                                                                    {% endfor %}
+                                                                <option value="0" selected="">Seleccione su Tarjeta
+                                                                </option>
+                                                                {% for card in card_list %}
+                                                                <option value="{{card.card_number}}" selected="">
+                                                                    {{card.card_number}}</option>
+                                                                {% endfor %}
                                                             </optgroup>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                                                <button class="btn btn-danger" type="button"
+                                                    data-bs-dismiss="modal">Cancelar</button>
                                                 <button class="btn btn-success" type="submit">Aceptar</button>
                                             </div>
                                         </form>
                                     </div>
-                                        
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: -1px;margin-bottom: -43px;">Nueva Transferencia</button>
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        style="margin-top: -1px;margin-bottom: -43px;">Nueva Transferencia</button>
                 </div>
             </div>
         </div>
@@ -95,11 +115,11 @@
                                 <td>{{transfer.import_transfer}}</td>
                                 <td>{{transfer.date}}</td>
                             </tr>
-                            
+
                             {% endfor %}
-                            
-                            
-                            
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -108,5 +128,22 @@
     </div>
 </div>
 
-
-{% endblock  %}
+{% if data.success_message %}
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: '{{ data.success_message }}',
+        showConfirmButton: false,
+        timer: 3000
+    });
+</script>
+{% elif data.error_message %}
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: '{{ data.error_message }}',
+        showConfirmButton: true,
+    });
+</script>
+{% endif %}
+{% endblock %}
