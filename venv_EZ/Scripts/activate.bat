@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\Programacion\PROYECTOS\BAKEND_EZ\venv_EZ
+set VIRTUAL_ENV=C:\BAKEND_EZ\enzona_web\venv_EZ
 
 if not defined PROMPT set PROMPT=$P$G
 

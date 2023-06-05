@@ -1,8 +1,4 @@
-from typing import Any
-from django import http
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
-from django.http.response import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DeleteView
 from django.urls import reverse_lazy

@@ -126,7 +126,7 @@ class Transfer(models.Model):
 
 class Service_Pay(models.Model):
 
-    service_id = models.IntegerField(unique=True, null=False)
+    service_id = models.IntegerField(null=False)
     propietary = models.CharField(max_length=50)
     service_type = models.CharField(max_length=50)
     import_service = models.IntegerField()

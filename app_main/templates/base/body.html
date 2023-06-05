@@ -1,22 +1,23 @@
 {% load static %}
 {% include 'base/head.html' %}
-
-<body style="background: url({% static 'img/774369.jpg' %}) top / cover no-repeat;">
+<body style="background: url(&quot;{% static 'img/774369.jpg' %} &quot;) top / cover no-repeat;">
 
     {% block header %}
     {% include 'base/header.html' %}
 
-    {% endblock %}
-
-
-
+    {% endblock  %}
+    
+ 
+  
     {% block content %}
-    {% endblock %}
-
-
+    {% endblock  %}
+   
+   
     {% block footer %}
     {% include 'base/footer.html' %}
 
-    {% endblock %}
+    {% endblock  %}
+
+    
 
 </body>

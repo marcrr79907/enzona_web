@@ -50,16 +50,7 @@ class UserUpdateForm(forms.ModelForm):
         form = super()
         try:
             if form.is_valid():
-                pwd = self.changed_data['password1']
-                u = form.save(commit=False)
-
-                if u.pk is None:
-                    u.set_password(pwd)
-                else:
-                    user = User.objects.get(pk=u.pk)
-                    if user.password != pwd:
-                        u.set_password(pwd)
-                u.save()
+                form.save()
 
             else:
                 data['error'] = form.errors
