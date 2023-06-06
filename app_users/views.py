@@ -32,9 +32,12 @@ class RegisterView(CreateView):
     model = User
     form_class = CustomUserCreationForm
     template_name = 'register.html'
+    url_redirect = reverse_lazy('users:register')
 
     def post(self, request, *args, **kwargs):
         data = {}
+        data['form_is_valid'] = False
+
         try:
             action = request.POST['action']
             if action == 'add':
@@ -53,7 +56,8 @@ class RegisterView(CreateView):
                             person.register = True
                             phone.associated = True
 
-                            data = form.save()
+                            form.save()
+                            data['form_is_valid'] = True
 
                         else:
                             data['error'] = 'Los campos de contraseña no coinciden!'
@@ -65,10 +69,22 @@ class RegisterView(CreateView):
 
             else:
                 data['error'] = 'No ha ingresado ninguna acción!'
+
+        except Person_DB.DoesNotExist:
+            data['error'] = 'El carnet de identidad no es válido'
+        except Phone_DB.DoesNotExist:
+            data['error'] = 'El teléfono no es válido'
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect(settings.LOGIN_URL)
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'La cuenta ha sido creada con éxito.'}
+            return redirect(self.url_redirect)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            return redirect(self.url_redirect)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,6 +92,7 @@ class RegisterView(CreateView):
         context['entity'] = 'User'
         context['list_url'] = reverse_lazy('register')
         context['action'] = 'add'
+        context['data'] = self.request.session.pop('data', None)
 
         return context
     
@@ -84,7 +101,6 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UserUpdateForm
     template_name = 'editp.html'
     success_url = reverse_lazy('users:profile')
-    url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -93,15 +109,16 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     def post(self, request, *args, **kwargs):
 
         data = {}
+
         try:
             action = request.POST['action']
             if action == 'edit':
                 form = self.get_form()
                 phone = Phone_DB.objects.get(number=request.POST['phone'])
-                print(request.POST['phone'])
                 if form.is_valid():
                     if phone:
-                        data = form.save()
+                        form.save()
+
                 else:
                     data['error'] = form.errors
             else:
@@ -109,7 +126,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         except Exception as e:
             data['error'] = str(e)
 
-        return redirect('users:profile')
+        return redirect(self.success_url) 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -125,8 +142,8 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         user = self.request.user
         data_user = Person_DB.objects.get(dni=user.ci)
-
         context = super().get_context_data(**kwargs)
+
         context['data_user'] = data_user
         context['user'] = user
 
@@ -137,7 +154,7 @@ class SegurityUserView(LoginRequiredMixin, FormView):
     model = User
     form_class = PasswordChangeForm
     template_name = 'segurity.html'
-    success_url = reverse_lazy('users:profile')
+    url_redirect = reverse_lazy('users:segurity')
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -149,11 +166,15 @@ class SegurityUserView(LoginRequiredMixin, FormView):
     def post(self, request, *args, **kwargs):
 
         data = {}
+        data['form_is_valid'] = False
+
         try:
             action = request.POST['action']
             if action == 'edit':
                 form = PasswordChangeForm(user=request.user, data=request.POST)
                 if form.is_valid():
+
+                    data['form_is_valid'] = True
                     form.save()
                     update_session_auth_hash(request, form.user)
                 else:
@@ -163,12 +184,20 @@ class SegurityUserView(LoginRequiredMixin, FormView):
         except Exception as e:
             data['error'] = str(e)
 
-        return super().post(request, *args, **kwargs)
+        if data['form_is_valid']:
+            request.session['data'] = {
+                'success_message': 'La contraseña ha sido actualizada con éxito.'}
+            return redirect(self.url_redirect)
+        else:
+            request.session['data'] = {
+                'error_message': data['error']}
+            return redirect(self.url_redirect)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Cambiar contraseña'
         context['url_redirect'] = self.success_url
+        context['data'] = self.request.session.pop('data', None)
         context['action'] = 'edit'
 
         return context

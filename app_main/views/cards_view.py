@@ -42,7 +42,6 @@ class CardCreateView(LoginRequiredMixin, CreateView):
         data['form_is_valid'] = False
         try:
             action = request.POST['action']
-            print(action)
             if action == 'add':
                 form = self.get_form()
 
@@ -61,16 +60,12 @@ class CardCreateView(LoginRequiredMixin, CreateView):
                             form.save()
                             data['form_is_valid'] = True
                         else:
-                            data['form_is_valid'] = False
                             data['error'] = 'Pin incorrecto'
                     else:
-                        data['form_is_valid'] = False
                         data['error'] = 'La tarjeta ya está asociada a un usuario!'
                 else:
-                    data['form_is_valid'] = False
                     data['error'] = form.errors
             else:
-                data['form_is_valid'] = False
                 data['error'] = 'No ha ingresado ninguna acción!'
         
         except Bank_DB.DoesNotExist:
@@ -86,7 +81,6 @@ class CardCreateView(LoginRequiredMixin, CreateView):
         else:
             request.session['data'] = {
                 'error_message': data['error']}
-            print(request.session['data'])
             return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
@@ -100,7 +94,6 @@ class CardCreateView(LoginRequiredMixin, CreateView):
 class CardDeleteView(LoginRequiredMixin, DeleteView):
     model = User_Card
     success_url = reverse_lazy('system:card_list')
-    url_redirect = success_url
     template_name = 'eliminar.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -125,7 +118,7 @@ class CardDeleteView(LoginRequiredMixin, DeleteView):
         
         context['title'] = 'Eliminar tarjeta'
         context['text'] = 'Estas seguro que desea eliminar la tarjta?'
-        context['url_redirect'] = reverse_lazy('system:card_list')
+        context['url_redirect'] = self.success_url
         return context
    
     

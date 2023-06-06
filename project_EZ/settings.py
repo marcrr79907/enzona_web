@@ -128,7 +128,7 @@ LOGIN_REDIRECT_URL = '/main/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # Acceder al login
-LOGIN_URL = '/login/'
+LOGIN_URL = 'users:login'
 
 # Creacion de User personalizado
 AUTH_USER_MODEL = 'app_users.User'
