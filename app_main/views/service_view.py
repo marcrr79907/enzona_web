@@ -145,7 +145,6 @@ class ServiceUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ServiceForm
     template_name = 'servicios/servicios.html'
     success_url = reverse_lazy('system:service_list')
-    url_redirect = success_url
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()

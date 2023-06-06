@@ -19,4 +19,12 @@
 
     {% endblock %}
 
+    {% block script %}
+    <script>
+        window.onbeforeunload = function () {
+            cerrarSesion();
+        };
+    </script>
+    {% endblock script %}
+
 </body>
