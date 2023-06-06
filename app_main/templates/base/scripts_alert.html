@@ -16,3 +16,8 @@
     });
 </script>
 {% endif %}
+<script>
+    window.onbeforeunload = function () {
+        cerrarSesion();
+    };
+</script>

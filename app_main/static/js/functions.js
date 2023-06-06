@@ -17,6 +17,11 @@ function messaje_error(obj) {
     });
 }
 
+document.getElementById("boton-regresar").onclick = function() {
+
+    history.back();
+}
+
 function alert(messaje) {
     Swal.fire({
         title: 'Error!',
