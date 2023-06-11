@@ -127,14 +127,16 @@ class ServicePayView(LoginRequiredMixin, UpdateView):
                         card_number=request.POST['card_number'])
                     service = self.object
                     if user_card.balance >= service.import_service:
+                        if user_card.currency_type == 'CUP':
 
-                        user_card.balance -= service.import_service
-                        service.checked = True
-                        user_card.save()
-                        service.save()
-                        form.save()
-                        data['form_is_valid'] = True
-
+                            user_card.balance -= service.import_service
+                            service.checked = True
+                            user_card.save()
+                            service.save()
+                            form.save()
+                            data['form_is_valid'] = True
+                        else:
+                            data['error'] = 'La moneda debe ser CUP'
                     else:
                         data['error'] = 'Saldo insuficiente para realizar la operación'
                 else:

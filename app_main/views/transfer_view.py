@@ -34,32 +34,35 @@ class TranferCreateView(LoginRequiredMixin, CreateView):
                     dest_card = Bank_DB.objects.get(card_number=dest)
 
                     mont = int(transfer_import)
-                    if origin != dest and origin_card.currency_type == dest_card.currency_type:
-                        if mont > 0:
-                            if user_org.balance >= mont:
-                                form.instance.user = self.request.user
-                                if dest_card.associated:
-                                    user_dest = User_Card.objects.get(
-                                        card_number=dest)
-                                    user_dest.balance += mont
-                                    user_dest.save()
+                    if origin != dest:
+                        if origin_card.currency_type == dest_card.currency_type:
+                            if mont > 0:
+                                if user_org.balance >= mont:
+                                    form.instance.user = self.request.user
+                                    if dest_card.associated:
+                                        user_dest = User_Card.objects.get(
+                                            card_number=dest)
+                                        user_dest.balance += mont
+                                        user_dest.save()
 
-                                dest_card.balance += mont
-                                user_org.balance -= mont
-                                origin_card.balance -= mont
+                                    dest_card.balance += mont
+                                    user_org.balance -= mont
+                                    origin_card.balance -= mont
 
-                                dest_card.save()
-                                user_org.save()
+                                    dest_card.save()
+                                    user_org.save()
 
-                                form.save()
-                                data['form_is_valid'] = True
+                                    form.save()
+                                    data['form_is_valid'] = True
 
+                                else:
+                                    data['error'] = 'Saldo insuficiente'
                             else:
-                                data['error'] = 'Saldo insuficiente'
+                                data['error'] = 'El saldo a transferir no puede ser cero'
                         else:
-                            data['error'] = 'El saldo a transferir no puede ser cero'
+                            data['error'] = 'El tipo de moneda debe ser el mismo!'
                     else:
-                        data['error'] = 'Las tarjetas no pueden ser iguales'
+                        data['error'] = 'Las tarjetas no pueden ser iguales '
                 else:
                     data['error'] = form.errors
             else:
